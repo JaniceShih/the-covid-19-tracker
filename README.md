@@ -1,9 +1,11 @@
 JS Project Proposal: The COVID-19 Tracker
 
 Background
+
 The website provide user to see COVID 19 cases, deaths and recovery per country/ US state on data visualization chart or map.
 
 Functionality & MVPs
+
 In The COVID Tracking Project, users will be able to see:
 • Case Summary
 • Vaccine Summary
@@ -11,6 +13,7 @@ In The COVID Tracking Project, users will be able to see:
 • Case List
 
 Wireframes
+
 https://wireframe.cc/pro/pp/cfb40977d534489
 
     •  Nav bar will include Case Summary, Vaccine Summary, Case map and Case List.
@@ -18,10 +21,12 @@ https://wireframe.cc/pro/pp/cfb40977d534489
     •  Button on the right corner, links to this project's Github repo, my LinkedIn and AngelList, and the About modal.
 
 Technologies, Libraries, APIs
+
 Libraries: D3
 API:https://github.com/M-Media-Group/Covid-19-API
 
 Implementation Timeline
+
 • Friday Afternoon & Weekend:
 • Setup project and getting comfortable with the D3 libraries API.
 • Monday:
