@@ -23,6 +23,7 @@ https://wireframe.cc/pro/pp/cfb40977d534489
 Technologies, Libraries, APIs
 
 Libraries: D3
+
 API:https://github.com/M-Media-Group/Covid-19-API
 
 Implementation Timeline
