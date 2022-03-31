@@ -7,9 +7,13 @@ The website provide user to see COVID 19 cases, deaths and recovery per country/
 Functionality & MVPs
 
 In The COVID Tracking Project, users will be able to see:
+
 • Case Summary
+
 • Vaccine Summary
+
 • Case Map
+
 • Case List
 
 Wireframes
