@@ -33,11 +33,19 @@ API:https://github.com/M-Media-Group/Covid-19-API
 Implementation Timeline
 
 • Friday Afternoon & Weekend:
+
 • Setup project and getting comfortable with the D3 libraries API.
+
 • Monday:
+
 • Dedicate this day toward implementing render data on chart/map.
+
 • Tuesday:
+
 • Do more function/interactive on data virtualization chart/map.
+
 • Wednesday:
+
 • Finish implementing data virtualization chart/map, and focus on styling, as well as implementing the different color schemes and nav links.
+
 • Thursday Morning: Deploy to GitHub pages. If time, rewrite this proposal as a production README.
