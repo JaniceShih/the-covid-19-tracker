@@ -17,8 +17,7 @@ In The COVID Tracking Project, users will be able to see:
 • Case List
 
 Wireframes
-
-https://wireframe.cc/pro/pp/cfb40977d534489
+![wireframe](https://wireframe.cc/pro/pp/cfb40977d534489)
 
     •  Nav bar will include Case Summary, Vaccine Summary, Case map and Case List.
     •  Main Area render Case Summary, Vaccine Summary, Case map and Case List
