@@ -341,13 +341,13 @@ template {
 }
 
 :root {
-  --color-backgroud: #243b52;
+  --color-backgroud: #1a191a;
   --color-callout: #012f5e;
   --color-primary: #2584ff;
   --color-secondary: #00d9ff;
   --color-accent: #ff3400;
   --color-headings: #1b0760;
-  --color-body: #918ca4;
+  --color-body: #9a98a3;
   --color-body-darker: #5c5577;
   --color-border: #ccc;
   --border-radius: 30px;
@@ -364,25 +364,29 @@ html {
 }
 
 body {
-  width: 80%;
-  margin: 0 auto;
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.5rem;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-size: 1rem;
   line-height: 1.5;
+  color: var(--color-body);
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #1b0760;
 }
 
 a {
   color: #2584ff;
+  text-decoration: none;
 }
 
 a:hover {
   color: #3a8ffd;
+}
+
+.header, .footer {
+  text-align: center;
 }
 
 .states {
@@ -392,36 +396,39 @@ a:hover {
 
 .states:hover {
   opacity: 0.6;
-}
-
-.legendLinear text {
-  font-size: 12px;
-}
-
-.states:hover {
   fill: rgb(30, 180, 230);
 }
 
 .d3-tip {
-  line-height: 1;
   padding: 12px;
-  background: rgba(43, 43, 43, 0.8);
-  color: #fff;
-  border-radius: 2px;
+  background: #fff;
+  color: rgb(69, 69, 69);
+  border-radius: 5px;
+}
+
+.d3-tip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
 }
 
 .canvaMap {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%;
-  vertical-align: top;
-  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
 }
 
-.svg-content {
-  display: inline-block;
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Navigation Bar */
+.nav {
+  background: var(--color-backgroud);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 1rem;
+  align-items: center;
 }

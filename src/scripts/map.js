@@ -6,8 +6,8 @@ class Map {
     }  
 
     d3(){     
-        
-        const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa.json";
+            
+        const stateURL = "/src/json/usa.json"; 
 
         const covidURL ="https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?";
         const d = new Date();
@@ -22,16 +22,13 @@ class Map {
                 console.log(error);
             }else{    
                 const query = covidURL + querydate;
-                console.log(query);
+                // console.log(query);
 
                  d3.json(query)
                 .then((coviddata, error)=>{
                     if(error){
                         console.log(error);
-                    }else{                       
-                        // coviddata.forEach(ele=>{                            
-                        //     console.log(ele.confirmed_daily);
-                        // })
+                    }else{                      
                         
                         drawMap(data, coviddata);
                     }
@@ -42,11 +39,12 @@ class Map {
 
 
         let drawMap = (data, coviddata)=> {
+            // topo json covert to geo json
             let statesData = topojson.feature(data, data.objects.units).features;
 
-            let width = 800;
-            let height = 550;
-
+            let width = 1000;
+            let height = 600;
+        
             let svg = d3.select(".canvaMap").append('svg')
                         .attr('width', width)
                         .attr('height', height);
@@ -61,8 +59,9 @@ class Map {
             svg.call(tip)
 
             let projection = d3.geoAlbersUsa()
-                                .scale(800) // mess with this if you want
+                                .scale(1000) // mess with this if you want
                                 .translate([width / 2, height / 2]);
+
         
             let path = d3.geoPath()
                          .projection(projection);
@@ -76,18 +75,23 @@ class Map {
 
                     const stateNmae =d.properties.name;
                     const stateCovid = coviddata.filter(ele => ele.state ===stateNmae);
+
                     let confirmed = 0;
                     let deaths =0 ;
+
                     stateCovid.forEach(ele=>{ 
                         deaths += ele.deaths;
-                        confirmed += ele.confirmed;                          
-                        // console.log(ele.confirmed_daily);
+                        confirmed += ele.confirmed;  
                     })
-                    const tipMessage = d.properties.name + "<br>Cases: " + confirmed + "<br>Deaths: " + deaths ;
+                    
+                    const tipMessage = d.properties.name 
+                                        + "<br>Cases: " + confirmed 
+                                        + "<br>Deaths: " + deaths ;
+
                     tip.show(event, tipMessage);
                 })
                 .on('mouseout', tip.hide)
-                .attr('fill' , '#e3e3e3'); 
+                .attr('fill' , '#b4b0be'); 
             
         };
     }

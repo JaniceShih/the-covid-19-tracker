@@ -1,63 +1,37 @@
-class Chart {
+import Fetch from "./Fetch"
+
+const covidURL ='https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?';
+
+const d = new Date();
+const startDate = d.getFullYear() + '-' + (((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1)) + '-' + (d.getDate()-1);
+const endDate = d.getFullYear() + '-' + (((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1)) + '-' + d.getDate();
+const queryDate = 'min_date=' + startDate + '&max_date=' +endDate;
+
+const apiUrl = covidURL + queryDate;
+
+class Chart {    
     constructor(ele){
         this.ele = ele;
+        // const fetch = new Fetch();
+        // fetch.getApiData(apiUrl);
 
         const d3createcanva = this.d3.bind(this.ele);
         d3createcanva();
     }  
 
     d3(){
-
-        const canvs = d3.select(".canvaChart");   
+        const canvs = d3.select(".canvaChart");  
         
-        
-        // var dataArray = [4, 15, 34, 123,23];
-        var dataArray = [
-            {
-                width: 25, 
-                height: 4, 
-                fill: "pink"
-            },
-            {width: 25, height: 14, fill: "purple"},
-            {width: 25, height: 44, fill: "orange"},
-            {width: 25, height: 124, fill: "green"},
-            {width: 25, height: 12, fill: "grey"}
-        ]
-
-
-        const svg = canvs.append('svg')
-        .attr("width", 450)
-        .attr("height", 450)
-
-        
-        const rect = svg.selectAll("rect");  
-        
-        // d3.json('https://jsonplaceholder.typicode.com/todos/1')
-         d3.json('./src/scripts/text.json')
-        .then(data=>{
-            console.log(data);
-            rect.data(data)
-            .enter().append("rect")        
-            .attr("width", 24)
-            .attr("fill", d=> d.fill)
-            .attr("height",  (d,i)=> d.height*2)
-            .attr("x", (d,i)=>i*25) 
-            .attr("y", (d,i)=> 300 - (d.height*2));
+        d3.json(apiUrl)
+        .then((data, error)=>{
+            if(error){
+                console.log(error);
+            }else{                      
+                console.log(data);
+            }
         });
 
-
-            
     }
-
-    // showd3(data){
-    //     rect.data(data)
-    //     .enter().append("rect")        
-    //     .attr("width", 24)
-    //     .attr("fill", d=> d.fill)
-    //     .attr("height",  (d,i)=> d.height*2)
-    //     .attr("x", (d,i)=>i*25) 
-    //     .attr("y", (d,i)=> 100 - (d.height*2));
-    // }
 }
 
 

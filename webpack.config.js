@@ -32,6 +32,7 @@ const config = {
   },
   watchOptions:{
     poll: true,
+    
   },
   plugins: [new MiniCssExtractPlugin()]
 };

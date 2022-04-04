@@ -1,50 +1,33 @@
 class Fetch {
-    constructor(ele){
-
-        this.ele = ele
-        // List:
-        let div = document.createElement("div");
-        div.setAttribute("id", "listApiData");
-        div.innerText = "show State info";
-        this.ele.appendChild(div);   
-
-        
-        getData();    
+    constructor(){        
+        this.apiData = [];
     }  
+
+    // getApiData(apiUrl){
+    //     getData(apiUrl);
+    // }
 }
 
-
-async function getData(url = 'https://api.covidtracking.com/v2/states.json') {
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error('Network response was not ok');
-    }
-    const data = await response.json() 
-    return data
-}
-
-getData()
-    .then(data => {
-        show(data.data);        
-    })
-    .catch(error => {
-        console.error('There has been a problem with your fetch operation: ', error);
-    }
-);
-
-function show(data){
-
-    var dataset = {};
-    let dataName ="";
-    for (let r of data) {
-        dataName += `<p> State : ${r.name} : ${r.census.population} </p>`;
-        dataset[r.name] = r.census.population;        
-    }  
-    document.getElementById("listApiData").innerHTML = dataName;
-    // console.log(dataset);
-    console.log("make a change");
+// async function getData(apiUrl) {
+//     console.log(apiUrl);
+//     const response = await fetch(apiUrl);
+//     if (!response.ok) {
+//         throw new Error('Network response was not ok');
+//     }
+//     const data = await response.json() 
+//     return data
+// }
 
 
-}
+// getData()
+//     .then(data => {
+//        console.log(data);       
+//     })
+//     .catch(error => {
+//         console.error('There has been a problem with your fetch operation: ', error);
+//     }
+// );
+
+
 
 export default Fetch;

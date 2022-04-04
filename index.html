@@ -7,21 +7,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <link rel="stylesheet" href="./dist/main.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.min.css">
 
-    <script src="//d3js.org/topojson.v1.min.js"></script>
-    
+    <!-- lib : d3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.min.js"></script>/
+    <!-- lib : topojson -->
+    <script src="//d3js.org/topojson.v1.min.js"></script>
+    <!-- lib : tooltip -->
+    <script src="https://cdn.jsdelivr.net/gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.min.js"></script>
+    <!-- lib : legend -->
+    <!-- <script src="d3-legend.min.js"></script> -->
+   
     <script src="./dist/main.js"></script>
 
     <title>COVID-19 Tracker</title>
 </head>
 
 <body>
-    <h1  id="title"> COVID-19 Tracker </h1>
+
+    <header>
+        <nav class="nav collapsible">
+
+          <a class="nav__brand" href="index.html"
+            ><span style="color: #0071bc; font-size: x-large">C</span
+            ><span style="color: #42b2fc">O</span
+            ><span style="color: #099afa">V</span
+            ><span style="color: #3f89bb">I</span
+            ><span style="color: #08c3fc">D</span
+            ><span style="color: #55d5fd">-19</span
+            ><span style="color: #bedef5; font-size: x-large">Tracker</span></a
+          >
+
+      </header>
+    
 
     <div class="canvaMap"></div>
+
+    <div class="canvaChart"></div>
+
+    <div id="description" class="footer ">
+        DataSource:
+        <a href="https://documenter.getpostman.com/view/1678623/SzfDx54T?version=latest#intro" target="_blank">
+            REST API MongoDB COVID-19 Open Data
+        </a> 
+        This data is from 2019 – present
+        
+    </div>
 </body>
 
 
