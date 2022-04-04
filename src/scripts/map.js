@@ -7,7 +7,7 @@ class Map {
 
     d3(){     
         
-        const stateURL = "/src/json/usa.json";
+        const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa.json";
 
         const covidURL ="https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?";
         const d = new Date();
