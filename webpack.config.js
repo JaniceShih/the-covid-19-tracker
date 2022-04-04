@@ -30,7 +30,10 @@ const config = {
       }
     ],
   },
-  plugins: [new MiniCssExtractPlugin()],
+  watchOptions:{
+    poll: true,
+  },
+  plugins: [new MiniCssExtractPlugin()]
 };
 
 module.exports = (env, argv) => {
