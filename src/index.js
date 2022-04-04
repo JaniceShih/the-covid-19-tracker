@@ -1,6 +1,8 @@
-import Chart from "./scripts/Chart"
-import Map from "./scripts/Map"
+// import Chart from "./scripts/Chart"
 // import Fetch from "./scripts/Fetch"
+
+import Map from "./scripts/Map"
+import Lenged from "./scripts/Lenged"
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -9,8 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // const apiData = new Fetch(main);
 
     // D3 Chart
-    const canvaChart = document.getElementsByClassName("canvaChart")
-    new Chart(canvaChart);
+    // const canvaChart = document.getElementsByClassName("canvaChart")
+    // new Chart(canvaChart);
+
+     // D3 Lengend
+     const legend = document.getElementsByClassName("legend"); 
+     new Lenged(legend); 
 
      // D3 Map
      const canvaMap = document.getElementsByClassName("canvaMap"); 

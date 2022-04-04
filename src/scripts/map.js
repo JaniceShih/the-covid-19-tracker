@@ -1,3 +1,15 @@
+import Fetch from "./Fetch"
+
+const d = new Date();
+const startDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()-1);
+const endDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + d.getDate();
+const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
+
+const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
+
+const stateURL = "/src/json/usa.json"; 
+
+
 class Map {
     constructor(ele){
         this.ele = ele;
@@ -5,57 +17,37 @@ class Map {
         d3drawMap();
     }  
 
-    d3(){     
-            
-        const stateURL = "/src/json/usa.json"; 
+    d3(){   
+        // fetch api data
+        const fetch = new Fetch();
+        fetch.getData(stateURL).then(data => {                
+            // console.log(data);
+            fetch.getData(apiUrl).then(coviddata => {
+                // console.log(coviddata);
+                drawMap(data, coviddata);
+            });
 
-        const covidURL ="https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?";
-        const d = new Date();
-        const startDate = d.getFullYear() + "-" + (((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1)) + "-" + (d.getDate()-1);
-        const endDate = d.getFullYear() + "-" + (((d.getMonth()+1) < 10 ? '0' : '') + (d.getMonth()+1)) + "-" + d.getDate();
-        const querydate = "min_date=" + startDate + "&max_date=" +endDate;
-        
-        
-        d3.json(stateURL)
-        .then((data, error)=>{
-            if(error){
-                console.log(error);
-            }else{    
-                const query = covidURL + querydate;
-                // console.log(query);
+        }); 
 
-                 d3.json(query)
-                .then((coviddata, error)=>{
-                    if(error){
-                        console.log(error);
-                    }else{                      
-                        
-                        drawMap(data, coviddata);
-                    }
-                });
-
-            }
-        });
-
-
+        // draw Map
         let drawMap = (data, coviddata)=> {
             // topo json covert to geo json
-            let statesData = topojson.feature(data, data.objects.units).features;
+            const statesData = topojson.feature(data, data.objects.units).features;
 
-            let width = 1000;
-            let height = 600;
+            const width = 1000;
+            const height = 550;
         
             let svg = d3.select(".canvaMap").append('svg')
                         .attr('width', width)
                         .attr('height', height);
 
-            /* Initialize tooltip */
+            // Initialize tooltip
             let tip = d3.tip()
                         .attr('class', 'd3-tip')
                         .offset([-8, 0])
                         .html((EVENT,d)=> d);
 
-            /* Invoke the tip in the context of your visualization */
+            // Invoke the tip in the context of your visualization
             svg.call(tip)
 
             let projection = d3.geoAlbersUsa()
@@ -92,6 +84,8 @@ class Map {
                 })
                 .on('mouseout', tip.hide)
                 .attr('fill' , '#b4b0be'); 
+             
+
             
         };
     }
