@@ -8,6 +8,7 @@ const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
 const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
 
 const stateURL = "/src/json/usa.json"; 
+const vaccinatedUrl ="https://data.cdc.gov/resource/8xkx-amqh.json";
 
 
 class Map {
@@ -21,10 +22,14 @@ class Map {
         // fetch api data
         const fetch = new Fetch();
         fetch.getData(stateURL).then(data => {                
-            // console.log(data);
+            console.log(data);
             fetch.getData(apiUrl).then(coviddata => {
-                // console.log(coviddata);
-                drawMap(data, coviddata);
+                console.log(coviddata);
+                
+                fetch.getData(vaccinatedUrl).then(Vaccinatedata => {
+                    console.log(Vaccinatedata);
+                    drawMap(data, coviddata);
+                });
             });
 
         }); 
@@ -57,7 +62,23 @@ class Map {
         
             let path = d3.geoPath()
                          .projection(projection);
+                         
+            let deathsArr = {};
+            let population = {};
+            let deathPercentage = {};
+            coviddata.forEach(ele=>{                               
+                deathsArr[ele.state] ||= 0;
+                population[ele.state] ||= 0;
+                deathsArr[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
+                population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
+            })
+            
+            for (const [key, value] of Object.entries(deathsArr)) {
+              
+                deathPercentage[key] = Math.floor((value / population[key]) * 10000);
+            }
 
+        
             svg.selectAll('path')
                 .data(statesData)
                 .enter().append('path')
@@ -66,7 +87,7 @@ class Map {
                 .on('mouseover', (event,d)=>{
 
                     const stateNmae =d.properties.name;
-                    const stateCovid = coviddata.filter(ele => ele.state ===stateNmae);
+                    const stateCovid = coviddata.filter(ele => ele.state === stateNmae);
 
                     let confirmed = 0;
                     let deaths =0 ;
@@ -76,18 +97,38 @@ class Map {
                         confirmed += ele.confirmed;  
                     })
                     
-                    const tipMessage = d.properties.name 
-                                        + "<br>Cases: " + confirmed 
-                                        + "<br>Deaths: " + deaths ;
-
+                    const tipMessage = `<strong>` + d.properties.name +`</strong>`
+                                        + `<br>Cases:  ` + confirmed 
+                                        + `<br>Deaths: ` + deaths
+                                        + ` (${deathPercentage[stateNmae]}%)` ;
+                
                     tip.show(event, tipMessage);
                 })
                 .on('mouseout', tip.hide)
-                .attr('fill' , '#b4b0be'); 
+                .attr('fill' , function(d,i) {
+                    // console.log(d.properties.name);
+                    return getColor(d.properties.name, deathPercentage[d.properties.name]);
+                }); 
              
 
             
         };
+
+        //colorRange pattern 1
+        let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
+        '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b'];
+        //colorRange pattern 2
+        // var colorRange = ['#e1f1b9', '#c1e1b9', '#aad4ba', '#79b8bf',
+        // '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b', '#f7fbce']
+        //colorRange pattern 3
+        // let  colorRange = ['#f7fbce', '#e1f1b9', '#c1e1b9', '#aad4ba', '#79b8bf',
+        //                 '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b']
+
+        let getColor = (d, deathPercentage) => {
+           
+            console.log(`get color : ${d}  ${Math.floor(deathPercentage/10)}`);
+           return colorRange[Math.floor(deathPercentage/10)];
+        }
     }
 
 }
