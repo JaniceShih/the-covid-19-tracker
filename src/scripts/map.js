@@ -8,6 +8,7 @@ const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
 const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
 
 const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa.json"; 
+
 const vaccinatedUrl ="https://data.cdc.gov/resource/8xkx-amqh.json";
 
 
