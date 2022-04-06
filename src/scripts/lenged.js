@@ -20,12 +20,6 @@ class Lenged {
         //colorRange pattern 1
         let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
         '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b'];
-        //colorRange pattern 2
-        // var colorRange = ['#e1f1b9', '#c1e1b9', '#aad4ba', '#79b8bf',
-        // '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b', '#f7fbce']
-        //colorRange pattern 3
-        // let  colorRange = ['#f7fbce', '#e1f1b9', '#c1e1b9', '#aad4ba', '#79b8bf',
-        //                 '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b']
         
         // let  color = d3.scaleOrdinal()
         //             .domain(keys)
@@ -58,7 +52,9 @@ class Lenged {
         lenged.append("text")
             .attr("x",size)
             .attr("y", 20)          
-            .text("% People Death, 10000 as a percent");
+            // .text("% People Death, 10000 as a percent");
+            .text("% People Fully Vaccinated");
+           
     }
 
 }
