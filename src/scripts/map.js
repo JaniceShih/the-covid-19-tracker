@@ -29,7 +29,7 @@ class Map {
                 // console.log(coviddata);                
                 fetch.getData(vaccinatedUrl).then(vaccinatedata => {
                     // console.log(vaccinatedata);              
-                    d3.csv("/src/csv/usa_state_abb.csv")
+                    d3.csv("https://janiceshih.github.io/the-covid-19-tracker/src/csv/usa_state_abb.csv")
                     .then((stateabbrdata, error)=>{
                         
                         if(error){
