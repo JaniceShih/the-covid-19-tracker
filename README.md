@@ -5,7 +5,9 @@
 The website provide user to see COVID 19 cases, deaths and vaccinated of US state on data visualization chart or map.
 
 -Super Easy to Use
+
 -Simply Fast to Get Result
+
 -Visulization Result
 
 ---
