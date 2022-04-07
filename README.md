@@ -29,7 +29,7 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 ![wireframe](Wireframe.PNG)
 
 ---
-Languages:
+## Languages:
 
 HTML
 
@@ -41,9 +41,9 @@ JavaScript
 ## Technologies, Libraries, APIs
 
 Libraries: 
-D3
+D3.js
 
 API: 
-[REST API MongoDB COVID-19 Open Data](https://github.com/M-Media-Group/Covid-19-API)
-[CDC Vaccinated Data](https://data.cdc.gov/resource/8xkx-amqh.json)
+REST API MongoDB COVID-19 Open Data
+CDC Vaccinated Data
 ---
