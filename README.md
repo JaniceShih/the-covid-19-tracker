@@ -22,7 +22,7 @@ In The COVID Tracking Project, users will be able to:
 
 - Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
 
-## This site was built using [GitHub Pages](https://janiceshih.github.io/the-covid-19-tracker/).
+Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
 
 ## Wireframes
 
