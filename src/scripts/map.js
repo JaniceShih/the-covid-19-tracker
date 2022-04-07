@@ -3,15 +3,15 @@ import Fetch from "./Fetch"
 const d = new Date();
 const startDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()-2);
 const endDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + d.getDate();
-const endDate1 = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()+1);
+// const month = (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) ;
 const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
 
 const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
 const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa.json"; 
 const vaccinatedUrl ="https://data.cdc.gov/resource/8xkx-amqh.json";
 
-// for New York
-const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=2022-04-1T00:00:00.000Z&max_date=2022-04-7T00:00:00.000Z`;
+const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=2022-04-1T00:00:00.000Z&max_date=${endDate}T00:00:00.000Z`;
+// console.log(dailyComfirmedUrl);
 
 
 class Map {
@@ -181,14 +181,17 @@ class Map {
 
 
 
-                    var dailyComfirmed = [];
+                    // console.log(dailyComfirmeddata);
+                    // console.log("=======");
+
+                    let dailyComfirmed = [];
                     let dailySataeComfirmedData = dailyComfirmeddata.filter(ele=> ele.state === stateName);
                     let current_day;
                     let dailyComfirmedObj = {};
                     let confirmed_daily;
                     let date;
 
-                    dailyComfirmeddata.forEach((ele, i)=>{ 
+                    dailySataeComfirmedData.forEach((ele, i)=>{ 
                     
                             if (i === 0){                                                                           
                                 date = ele.date;
@@ -202,7 +205,7 @@ class Map {
                                     "confirmed_daily" :confirmed_daily
                                 }
                                 dailyComfirmed.push(dailyComfirmedObj);
-                                 dailyComfirmedObj = {};
+                                let dailyComfirmedObj = {};
                                 date = ele.date;
                                 confirmed_daily= 0;
                                 current_day = ele.date;
@@ -210,7 +213,7 @@ class Map {
                             }
                             else{
                                 // console.log("Same date");
-                                confirmed_daily += ele.confirmed_daily;
+                                if(ele.confirmed_daily > 0) confirmed_daily += ele.confirmed_daily;
                             }
 
                             if (i ===(dailySataeComfirmedData.length-1)){
@@ -223,15 +226,17 @@ class Map {
                             
                     })  
 
+                   
 
                     let dataset1 = dailyComfirmed;
                     var formatTime = d3.timeFormat("%Y-%m-%d");
                     dataset1.forEach(function(d) {
                         d.date = new Date(formatTime(new Date(d.date)));
-                        d.confirmed_daily = +d.confirmed_daily;
+                        d.confirmed_daily = d.confirmed_daily;
                     });
                     
-                  
+                    // console.log(dataset1);
+
                     const chartWidth = 250;
                     const chartHeight = 80;
 
@@ -242,7 +247,7 @@ class Map {
                  
                     let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length - 1].date])
                                 .range([0, chartWidth]);
-                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })+10]).range([chartHeight, 0]);
+                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })]).range([chartHeight, 0]);
                    
                     let g = tipSVG.append("g")
                     .attr("transform", "translate(" + 50 + "," + 100 + ")");
@@ -257,10 +262,9 @@ class Map {
 
                     
                     g.append("g")
-                       .attr("transform", "translate(0," + -19 + ")")
+                       .attr("transform", "translate(0," + -19 + ")")                      
                         .call( d3.axisBottom()
-                        .scale(xScale)
-                        .tickFormat(d3.timeFormat("%Y-%m-%d")))
+                        .scale(xScale).ticks(6).tickFormat(d3.timeFormat("%Y-%m-%d")))
                         .selectAll("text")	
                           .style("text-anchor", "end")
                           .attr("dx", "-.8em")
@@ -270,9 +274,9 @@ class Map {
                     
                     
                     g.append("g")
-                        .attr("transform", "translate(" + -3 + "," + -100 + ")")
+                        .attr("transform", "translate(" + 0 + "," + -100 + ")")
                         .call( d3.axisLeft()
-                        .scale(yScale).ticks(3).tickFormat(d3.format(".2s")));
+                        .scale(yScale).ticks(2));
 
                    
                     let line = d3.line()
