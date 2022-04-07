@@ -49,7 +49,7 @@ class Map {
                                     dailyComfirmed.push(dailyComfirmedObj);
                                    
                                 })
-                                 console.log(dailyComfirmed);
+                                 //console.log(dailyComfirmed);
                                  drawMap(data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmed);
 
                             });
@@ -79,7 +79,7 @@ class Map {
             // Initialize tooltip
             let tip = d3.tip()
                         .attr('class', 'd3-tip')
-                        .offset(current_position[0] > 650 ? [-20, -120] : [20, 120])
+                        .offset([-50, 130])
                         .html((EVENT,d)=> d);
                         // .html(
                         //     "<p>Opioid-involved deaths over time in</p>
@@ -162,10 +162,10 @@ class Map {
                         confirmed += ele.confirmed;  
                     })
                     
-                    let tipObject = `<strong>` + d.properties.name +`</strong><br>`
-                                        + ` Cases:  ` + confirmed 
-                                        + ` Deaths: ` + deaths
-                                        + `<br>People Fully Vaccinated: ${fullyVaccinatedPercentage[stateName]}% ` ;
+                    let tipObject = `<div class='tipContext'><strong>` + d.properties.name +`</strong>`
+                                        + `<br>Totally Cases:  ` + confirmed 
+                                        + `<br>Totally Deaths: ` + deaths
+                                        + `<br>People Fully Vaccinated: ${fullyVaccinatedPercentage[stateName]}% </div><br>` ;
                   
                     tipObject += `<div id='tipDiv'></div>`;
                 
@@ -176,17 +176,6 @@ class Map {
                     tip.show(event, tipObject);
 
 
-                    
-                    // for line chart
-                    // let dataset1 = [
-                    //     [1,1], [12,20], [24,36],
-                    //     [32, 50], [40, 70], [50, 100],
-                    //     [55, 106], [65, 123], [73, 130],
-                    //     [78, 134], [83, 136], [89, 138],
-                    //     [100, 140]
-                    // ];
-
-
                     let dataset1 = dailyComfirmed;
                     var formatTime = d3.timeFormat("%Y-%m-%d");
                     dataset1.forEach(function(d) {
@@ -194,72 +183,63 @@ class Map {
                         d.confirmed_daily = +d.confirmed_daily;
                     });
                     
-                    console.log(dataset1[0].date);
-                    console.log( dataset1[dataset1.length - 1].date);
-                    // console.log(" ==== dailyComfirmed chart ====");
-                    console.log(dataset1);
-
+                  
                     const chartWidth = 250;
                     const chartHeight = 80;
 
                     let tipSVG = d3.select("#tipDiv")
                         .append("svg")
-                        .attr("width", chartWidth)
-                        .attr("height", chartHeight);
-
-                    // let xScale = d3.scaleLinear().domain([0, 100]).range([0, chartWidth]);
-
-                    //     var dates = [];
-                    //     for (let obj of dataset1) {
-                            
-                    //     dates.push(obj[0]);
-                        
-                    // }
-
-                    // console.log(dates);
-                    // var xScale = d3.scaleTime().range([0, chartWidth])
-                    //                  .domain([new Date("2020-01-22"), new Date("2022-04-05")])
+                        .attr("width", chartWidth+70)
+                        .attr("height", chartHeight+60);
+                 
                     let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length - 1].date])
                                 .range([0, chartWidth]);
-                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })]).range([chartHeight, 0]);
+                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })+10000]).range([chartHeight, 0]);
                    
                     let g = tipSVG.append("g")
-                    .attr("transform", "translate(" + 100 + "," + 100 + ")");
+                    .attr("transform", "translate(" + 50 + "," + 100 + ")");
 
                     tipSVG.append('text')
-                        .attr('x', 50)
-                        .attr('y', 0)
+                        .attr('x', chartWidth/2 + 100)
+                        .attr('y', 135)
                         .attr('text-anchor', 'middle')
                         .style('font-family', 'Helvetica')
-                        .style('font-size', 10)
+                        .style('font-size', 12)
                         .text('daily comfimed cases');
 
-                    g.append("g")
-                    .attr("transform", "translate(0," + 80 + ")")
-                    .call(d3.axisBottom(xScale));
                     
                     g.append("g")
-                    .call(d3.axisLeft(yScale));
+                       .attr("transform", "translate(0," + -19 + ")")
+                        .call( d3.axisBottom()
+                        .scale(xScale)
+                        .tickFormat(d3.timeFormat("%Y-%m")))
+                        .selectAll("text")	
+                          .style("text-anchor", "end")
+                          .attr("dx", "-.8em")
+                          .attr("dy", ".15em")
+                          .attr("transform", "rotate(-25)")
+                        ;
+                    
+                    
+                    g.append("g")
+                        .attr("transform", "translate(" + -3 + "," + -100 + ")")
+                        .call( d3.axisLeft()
+                        .scale(yScale).ticks(3).tickFormat(d3.format(".2s")));
 
                    
                     let line = d3.line()
-                    .x(function(d) {  
-                        // console.log(d.date);  
-                        // const dx= xScale(d.date);  
-                        //  console.log(dx);                
+                    .x(function(d) {              
                         return xScale(d.date); }) 
-                    .y(function(d) {
-                        // const dy= yScale(d.confirmed_daily);  
-                        //  console.log(dy);                          
+                    .y(function(d) {                         
                         return yScale(d.confirmed_daily); }) 
                         
                     tipSVG.append("path")
                         .datum(dataset1) 
                         .attr("class", "line") 
-                        // .attr("transform", "translate(" + 100 + "," + 100 + ")")
+                        .attr("transform", "translate(" + 50 + "," + 0 + ")")
                         .attr("d", line)
                         .style("fill", "none")
-                        .style("stroke", "#CC0000")
+                        .style("stroke", "#2584ff")
                         .style("stroke-width", "2");
 
 
@@ -275,9 +255,7 @@ class Map {
         let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
         '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b'];
 
-        let getColor = (d, fullyVaccinatedPercentage) => {
-           
-            // console.log(`get color : ${d}  ${Math.floor(fullyVaccinatedPercentage/10)}`);
+        let getColor = (d, fullyVaccinatedPercentage) => {      
            return colorRange[Math.floor(fullyVaccinatedPercentage/10)];
         }
 

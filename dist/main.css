@@ -402,14 +402,14 @@ a:hover {
 
 .states:hover {
   opacity: 0.6;
-  fill: rgb(3, 187, 249);
+  fill: rgb(165, 196, 207);
 }
 
 .d3-tip {
-  padding: 12px;
+  padding: 10px;
   background: #fff;
   color: rgb(69, 69, 69);
-  border-radius: 5px;
+  border-radius: 30px;
   border: 1px solid rgb(192, 190, 190);
 }
 
