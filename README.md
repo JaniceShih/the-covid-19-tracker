@@ -13,6 +13,7 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 ---
 
 ## Functionality & MVPs
+---
 
 In The COVID Tracking Project, users will be able to:
 
@@ -25,13 +26,18 @@ In The COVID Tracking Project, users will be able to:
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
 ---
 ## Wireframes
+---
 
 ![wireframe](Wireframe.PNG)
 
 ---
 ## Technologies, Libraries, APIs
+---
 
-Libraries: D3
+Libraries: 
+D3
 
-API: -https://github.com/M-Media-Group/Covid-19-API
+API: 
+[REST API MongoDB COVID-19 Open Data](https://github.com/M-Media-Group/Covid-19-API)
+[CDC Vaccinated Data](https://data.cdc.gov/resource/8xkx-amqh.json)
 ---
