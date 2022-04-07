@@ -3,11 +3,11 @@
 
 The website provide user to see COVID 19 cases, deaths and vaccinated of US states on data visualization chart or map.
 
--Super Easy to Use
+- Super Easy to Use
 
--Simply Fast to Get Result
+- Simply Fast to Get Result
 
--Visulization Result
+- Visulization Result
 
 ---
 
@@ -34,11 +34,11 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 
 ## Languages:
 
-HTML
+- HTML
 
-CSS
+- CSS
 
-JavaScript
+- JavaScript
 
 ---
 
@@ -46,10 +46,18 @@ JavaScript
 
 ### Libraries:
 
-D3.js
+- D3.js
 
 ### API:
 
-REST API MongoDB COVID-19 Open Data
+- REST API MongoDB COVID-19 Open Data
 
-CDC Vaccinated Data
+- CDC Vaccinated Data
+
+---
+
+## Upcoming Features
+
+### Search Function:
+
+- Show List and Chart of Result base on Search keyword.
