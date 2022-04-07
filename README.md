@@ -1,20 +1,22 @@
-JS Project Proposal: The COVID-19 Tracker
+**COVID-19 Tracker**
 
-Background
+The website provide user to see COVID 19 cases, deaths and vaccinated of US state on data visualization chart or map.
 
-The website provide user to see COVID 19 cases, deaths and recovery per country/ US state on data visualization chart or map.
+-Super Easy to Use
+-Simply Fast to Get Result
+-Visulization Result
 
 Functionality & MVPs
 
-In The COVID Tracking Project, users will be able to see:
+In The COVID Tracking Project, users will be able to:
 
-• Case Summary
+- See colorly USA States Map base on Covid-19 Fully Vaccinated and Lenged bar.
 
-• Vaccine Summary
+- Use Mouse havor each Stae render Tip with Covid-19 cases and deaths data from API.
 
-• Case Map
+- Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
 
-• Case List
+This site was built using [GitHub Pages](https://janiceshih.github.io/the-covid-19-tracker/).
 
 Wireframes
 
@@ -22,34 +24,8 @@ Wireframes
 
 https://wireframe.cc/pro/pp/cfb40977d534489
 
-•  Nav bar will include Case Summary, Vaccine Summary, Case map and Case List.
-•  Main Area render Case Summary, Vaccine Summary, Case map and Case List
-•  Button on the right corner, links to this project's Github repo, my LinkedIn and AngelList, and the About modal.
-
 Technologies, Libraries, APIs
 
-Libraries: D3
+-Libraries: D3
 
-API:https://github.com/M-Media-Group/Covid-19-API
-
-Implementation Timeline
-
-• Friday Afternoon & Weekend:
-
-Setup project and getting comfortable with the D3 libraries API.
-
-• Monday:
-
-Dedicate this day toward implementing render data on chart/map.
-
-• Tuesday:
-
-Do more function/interactive on data virtualization chart/map.
-
-• Wednesday:
-
-Finish implementing data virtualization chart/map, and focus on styling, as well as implementing the different color schemes and nav links.
-
-• Thursday Morning: 
-
-Deploy to GitHub pages. If time, rewrite this proposal as a production README.
+-API:https://github.com/M-Media-Group/Covid-19-API

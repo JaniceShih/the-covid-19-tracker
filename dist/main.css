@@ -367,13 +367,19 @@ body {
   /* font-family: Inter, Arial, Helvetica, sans-serif; */
   font-size: 1.4rem;
   line-height: 1.4;
-  color: var(--color-body);
+  color: var(--color-body-darker);
 }
 
-h1 {
-  font-size: 2.5rem;
+h1, h2 {
+  font-size: 2.3rem;
   font-weight: 700;
-  color: #1b0760;
+  color: var(--color-headings);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-headings);
 }
 
 a {
