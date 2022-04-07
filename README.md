@@ -24,9 +24,9 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 
 ---
 
-## Wireframes
+## Screenshot 
 
-![wireframe](Wireframe.PNG)
+![Screenshot ](./scr/images/index.png)
 
 ---
 
