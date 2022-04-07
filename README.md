@@ -26,7 +26,7 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 
 ## Screenshot 
 
-![](https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/index.png =250x250)
+![](hhttps://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/index.png =250x250)
 
 ---
 
