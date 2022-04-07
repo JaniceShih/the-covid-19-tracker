@@ -3,6 +3,7 @@ import Fetch from "./Fetch"
 const d = new Date();
 const startDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()-2);
 const endDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + d.getDate();
+const endDate1 = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()+1);
 const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
 
 const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
@@ -10,7 +11,7 @@ const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa
 const vaccinatedUrl ="https://data.cdc.gov/resource/8xkx-amqh.json";
 
 // for New York
-const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?state=New%20York&county=New%20York&min_date=2019-12-1T00:00:00.000Z&max_date=${endDate}`;
+const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=2022-04-1T00:00:00.000Z&max_date=2022-04-7T00:00:00.000Z`;
 
 
 class Map {
@@ -37,20 +38,20 @@ class Map {
                         }else{ 
                               
                             fetch.getData(dailyComfirmedUrl).then(dailyComfirmeddata => {
-                                let dailyComfirmed =[]; 
-                                var formatTime = d3.timeFormat("%d-%b-%y");
+                                // let dailyComfirmed =[]; 
+                                // var formatTime = d3.timeFormat("%d-%b-%y");
 
-                                dailyComfirmeddata.forEach(ele=>{
-                                    let dailyComfirmedObj = {};
-                                    // dailyComfirmedObj["date"] = formatTime(new Date(ele.date));
-                                    // dailyComfirmedObj["confirmed_daily"] = parseInt(ele.confirmed_daily);
-                                     dailyComfirmedObj["date"] = ele.date;
-                                    dailyComfirmedObj["confirmed_daily"] = ele.confirmed_daily;
-                                    dailyComfirmed.push(dailyComfirmedObj);
+                                // dailyComfirmeddata.forEach(ele=>{
+                                //     let dailyComfirmedObj = {};
+                                //     // dailyComfirmedObj["date"] = formatTime(new Date(ele.date));
+                                //     // dailyComfirmedObj["confirmed_daily"] = parseInt(ele.confirmed_daily);
+                                //      dailyComfirmedObj["date"] = ele.date;
+                                //     dailyComfirmedObj["confirmed_daily"] = ele.confirmed_daily;
+                                //     dailyComfirmed.push(dailyComfirmedObj);
                                    
-                                })
+                                // })
                                  //console.log(dailyComfirmed);
-                                 drawMap(data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmed);
+                                 drawMap(data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmeddata);
 
                             });
 
@@ -64,7 +65,7 @@ class Map {
 
         
         // draw Map
-        let drawMap = (data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmed)=> {
+        let drawMap = (data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
 
@@ -173,7 +174,54 @@ class Map {
                     current_position =  d3.pointer(event);
                     // console.log(current_position[0]);
 
+
+
+
                     tip.show(event, tipObject);
+
+
+
+                    var dailyComfirmed = [];
+                    let dailySataeComfirmedData = dailyComfirmeddata.filter(ele=> ele.state === stateName);
+                    let current_day;
+                    let dailyComfirmedObj = {};
+                    let confirmed_daily;
+                    let date;
+
+                    dailyComfirmeddata.forEach((ele, i)=>{ 
+                    
+                            if (i === 0){                                                                           
+                                date = ele.date;
+                                confirmed_daily = 0;
+                                current_day = ele.date;
+                            }
+                            
+                            if (current_day !== ele.date){
+                                dailyComfirmedObj = {
+                                    "date" : date,
+                                    "confirmed_daily" :confirmed_daily
+                                }
+                                dailyComfirmed.push(dailyComfirmedObj);
+                                 dailyComfirmedObj = {};
+                                date = ele.date;
+                                confirmed_daily= 0;
+                                current_day = ele.date;
+                                // console.log("not same date");
+                            }
+                            else{
+                                // console.log("Same date");
+                                confirmed_daily += ele.confirmed_daily;
+                            }
+
+                            if (i ===(dailySataeComfirmedData.length-1)){
+                                dailyComfirmedObj = {
+                                    "date" : date,
+                                    "confirmed_daily" :confirmed_daily
+                                }
+                                dailyComfirmed.push(dailyComfirmedObj);
+                            }                                             
+                            
+                    })  
 
 
                     let dataset1 = dailyComfirmed;
@@ -194,7 +242,7 @@ class Map {
                  
                     let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length - 1].date])
                                 .range([0, chartWidth]);
-                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })+10000]).range([chartHeight, 0]);
+                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })+10]).range([chartHeight, 0]);
                    
                     let g = tipSVG.append("g")
                     .attr("transform", "translate(" + 50 + "," + 100 + ")");
@@ -212,7 +260,7 @@ class Map {
                        .attr("transform", "translate(0," + -19 + ")")
                         .call( d3.axisBottom()
                         .scale(xScale)
-                        .tickFormat(d3.timeFormat("%Y-%m")))
+                        .tickFormat(d3.timeFormat("%Y-%m-%d")))
                         .selectAll("text")	
                           .style("text-anchor", "end")
                           .attr("dx", "-.8em")

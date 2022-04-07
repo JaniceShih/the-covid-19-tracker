@@ -35,9 +35,9 @@
           >
 
           <ul class="list nav__list collapsible__content">
-            <li class="nav__item"> <i class="fa fa-home fa-lg"></i> Home</li>
-            <li class="nav__item"><i class="fa fa-github fa-lg"></i> GitHub</li>        
-            <li class="nav__item"><i class="fa fa-linkedin fa-lg"></i></li> 
+            <li class="nav__item">  <a id="myBtn"><i class="fa fa-home fa-lg"></i> About </li></a>
+            <li class="nav__item"><a href="https://github.com/JaniceShih/the-covid-19-tracker" target="blank"><i class="fa fa-github fa-lg"></i> GitHub </li>  </a>      
+            <li class="nav__item"><a><i class="fa fa-linkedin fa-lg"></i></a></li> 
           </ul>          
         </nav>       
       </header>
@@ -57,6 +57,51 @@
             CDC
         </a> .
     </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Visualization for COVID-19Tracker</h2>
+    <p>The website provide user to see COVID 19 cases, deaths and vaccinated per US state on data visualization chart or map.</p>
+    <h3>  How to Use: </h3>
+      <p>1. User can see colorly USA States Map base on Covid-19  Fully Vaccinated and Lenged bar.</p>
+      <p>2. Mouse havor each Stae render Tip with Covid-19 cases and deaths data from API.</p>
+      <p>3. Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.</p>
+    </div>
+
+    </div>
+
+    <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+    }
+    </script>
 
 </body>
 
