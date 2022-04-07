@@ -40,10 +40,12 @@ JavaScript
 ---
 ## Technologies, Libraries, APIs
 
-Libraries: 
+Libraries:
+
 D3.js
 
 API: 
+
 REST API MongoDB COVID-19 Open Data
+
 CDC Vaccinated Data
----
