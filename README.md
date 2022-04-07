@@ -1,4 +1,6 @@
-**COVID-19 Tracker**
+## COVID-19 Tracker
+
+---
 
 The website provide user to see COVID 19 cases, deaths and vaccinated of US state on data visualization chart or map.
 
@@ -6,7 +8,9 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 -Simply Fast to Get Result
 -Visulization Result
 
-Functionality & MVPs
+---
+
+## Functionality & MVPs
 
 In The COVID Tracking Project, users will be able to:
 
@@ -16,15 +20,15 @@ In The COVID Tracking Project, users will be able to:
 
 - Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
 
-This site was built using [GitHub Pages](https://janiceshih.github.io/the-covid-19-tracker/).
+## This site was built using [GitHub Pages](https://janiceshih.github.io/the-covid-19-tracker/).
 
-Wireframes
+## Wireframes
 
 ![wireframe](Wireframe.PNG)
 
-https://wireframe.cc/pro/pp/cfb40977d534489
+## https://wireframe.cc/pro/pp/cfb40977d534489
 
-Technologies, Libraries, APIs
+## Technologies, Libraries, APIs
 
 -Libraries: D3
 
