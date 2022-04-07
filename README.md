@@ -8,6 +8,7 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 -Simply Fast to Get Result
 
 -Visulization Result
+
 ---
 
 ## Functionality & MVPs
