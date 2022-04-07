@@ -28,6 +28,14 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 
 ![wireframe](Wireframe.PNG)
 
+---
+Languages:
+
+HTML
+
+CSS
+
+JavaScript
 
 ---
 ## Technologies, Libraries, APIs
