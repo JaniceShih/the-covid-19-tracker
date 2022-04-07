@@ -26,7 +26,8 @@ Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/
 
 ## Screenshot 
 
-![](hhttps://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/index.png =250x250)
+
+![](https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/index.png)
 
 ---
 
@@ -40,13 +41,13 @@ JavaScript
 
 ---
 
-## Technologies, Libraries, APIs
+## Libraries, APIs
 
-Libraries:
+### Libraries:
 
 D3.js
 
-API:
+### API:
 
 REST API MongoDB COVID-19 Open Data
 
