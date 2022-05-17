@@ -7,7 +7,7 @@ class Lenged {
 
     d3(){   
                
-        const width = 600;
+        const width = 750;
         const height = 80;
     
         let lenged = d3.select(".legend").append('svg')
@@ -15,7 +15,7 @@ class Lenged {
                     .attr('height', height);
 
                
-        let  keys = ['10', '20', '30', '40', '50','60', '70', '80', '90'];       
+        let  keys = ['No Data','1', '190001', '200001', '210001', '220001', '230001','240001', '250001', '260001+'];       
 
         //colorRange pattern 1
         let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
@@ -26,14 +26,14 @@ class Lenged {
         //             .range(colorRange);
 
         // Add one dot in the legend for each name.
-        let  size = 40;
+        let  size = 60;
         lenged.selectAll('mylenged')
                 .data(colorRange)
                 .enter()
                 .append('rect')                       
                 .attr('y', 30)
                 .attr('x', function(d,i){ return size + i*(size+2)})      
-                .attr('width', 40)
+                .attr('width', 60)
                 .attr('height', 15)
                 .style('fill', function(d, i){ return colorRange[i]})
 
@@ -42,8 +42,8 @@ class Lenged {
                 .data(keys)
                 .enter()
                 .append('text')
-                .attr('y', 20 + size)
-                .attr('x', function(d,i){ return size*2 + i*(size+2)}) 
+                .attr('y', size)
+                .attr('x', function(d,i){ return size + i*(size+2)}) 
                 .style('fill', 'darkgrey')
                 .text(function(d, i){ return keys[i]})
                 .attr('text-anchor', 'left')
@@ -53,7 +53,7 @@ class Lenged {
             .attr("x",size)
             .attr("y", 20)          
             // .text("% People Death, 10000 as a percent");
-            .text("% People Fully Vaccinated");
+            .text("* Total Doses Administered rate (per 100,000 of the Total Population)");
            
     }
 

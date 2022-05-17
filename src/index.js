@@ -1,8 +1,8 @@
 // import Chart from "./scripts/Chart"
 // import Fetch from "./scripts/Fetch"
 
-import Map from "./scripts/Map"
-import Lenged from "./scripts/Lenged"
+import Map from "./scripts/map"
+import Lenged from "./scripts/lenged"
 
 
 document.addEventListener("DOMContentLoaded", () => {

@@ -1,18 +1,22 @@
-import Fetch from "./Fetch"
+import Fetch from "./fetch"
 
-const d = new Date();
-const startDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()-2);
-const endDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + d.getDate();
-// const month = (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) ;
-const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
+const stateURL = "./src/json/usa.json"; 
+const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 
-const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
-const stateURL = "https://janiceshih.github.io/the-covid-19-tracker/src/json/usa.json"; 
-const vaccinatedUrl ="https://data.cdc.gov/resource/8xkx-amqh.json";
+let date = new Date();
+const year = date.getFullYear();
+const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
+const day = date.getDate();
+const currentDate= year + `-` + month + `-` +  day;
+const maxDate= year + `-` + month + `-` +  (date.getDate());
+const updateCaseDate = year + `-` + month + `-` +  (date.getDate()-1);
 
-const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=2022-04-1T00:00:00.000Z&max_date=${endDate}T00:00:00.000Z`;
+date.setDate(date.getDate() - 7);
+let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  date.getDate();
+// console.log(weekage);
+
+const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${weekage}T00:00:00.000Z&max_date=${maxDate}T00:00:00.000Z`;
 // console.log(dailyComfirmedUrl);
-
 
 class Map {
     constructor(ele){
@@ -24,53 +28,33 @@ class Map {
     d3(){   
         // fetch api data
         const fetch = new Fetch();
+
         fetch.getData(stateURL).then(data => {                
-            // console.log(data);
-            fetch.getData(apiUrl).then(coviddata => {
-                // console.log(coviddata);                
-                fetch.getData(vaccinatedUrl).then(vaccinatedata => {
-                    // console.log(vaccinatedata);              
-                    d3.csv("https://janiceshih.github.io/the-covid-19-tracker/src/csv/usa_state_abb.csv")
-                    .then((stateabbrdata, error)=>{
-                        
-                        if(error){
-                            console.log(error);
-                        }else{ 
-                              
-                            fetch.getData(dailyComfirmedUrl).then(dailyComfirmeddata => {
-                                // let dailyComfirmed =[]; 
-                                // var formatTime = d3.timeFormat("%d-%b-%y");
-
-                                // dailyComfirmeddata.forEach(ele=>{
-                                //     let dailyComfirmedObj = {};
-                                //     // dailyComfirmedObj["date"] = formatTime(new Date(ele.date));
-                                //     // dailyComfirmedObj["confirmed_daily"] = parseInt(ele.confirmed_daily);
-                                //      dailyComfirmedObj["date"] = ele.date;
-                                //     dailyComfirmedObj["confirmed_daily"] = ele.confirmed_daily;
-                                //     dailyComfirmed.push(dailyComfirmedObj);
-                                   
-                                // })
-                                 //console.log(dailyComfirmed);
-                                 drawMap(data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmeddata);
-
-                            });
-
-                           
-                        }
-                    });
+             
+            fetch.getData(vaccinatedUrl).then(vaccinatedata => {           
+                d3.csv("./src/csv/usa_state_abb.csv")
+                .then((stateabbrdata, error)=>{                        
+                    if(error){
+                        console.log(error);
+                    }else{                               
+                        fetch.getData(dailyComfirmedUrl).then(dailyComfirmeddata => {                       
+                           drawMap(data, vaccinatedata, stateabbrdata, dailyComfirmeddata);
+                        });                           
+                    }
                 });
             });
+       
 
         }); 
 
         
         // draw Map
-        let drawMap = (data, coviddata, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
+        let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
 
             const width = 1150;
-            const height = 550;
+            const height = 600;
         
             let svg = d3.select(".canvaMap").append('svg')
                         .attr('width', width)
@@ -80,7 +64,7 @@ class Map {
             // Initialize tooltip
             let tip = d3.tip()
                         .attr('class', 'd3-tip')
-                        .offset([-50, 130])
+                        .offset([-50, 100])
                         .html((EVENT,d)=> d);
                         // .html(
                         //     "<p>Opioid-involved deaths over time in</p>
@@ -98,137 +82,73 @@ class Map {
             let path = d3.geoPath()
                          .projection(projection);
 
-            // color map state base on death percent           
-            let deathsArr = {};
-            let population = {};
-            let deathPercentage = {};
-            coviddata.forEach(ele=>{                               
-                deathsArr[ele.state] ||= 0;
-                population[ele.state] ||= 0;
-                deathsArr[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
-                population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
-            })
+                         
+
+            // color map state base on Total Doses Administered Reported  
             
-            for (const [key, value] of Object.entries(deathsArr)) {              
-                deathPercentage[key] = Math.floor((value / population[key]) * 10000);
-            }   
-
-            // color map state base on fully vaccinated percent   
             let fullyVaccinated = {};
-            let fullyVaccinatedPercentage = {};
             for (let i = 0; i < stateabbrdata.length; i++) {
-                const stateName = stateabbrdata[i].State;
-                const stateAbbr = stateabbrdata[i].Abbr;
-
-                const stateCovid = coviddata.filter(ele => ele.state === stateName);
-                const stateVaccinated= vaccinatedata.filter(ele => ele.recip_state === stateAbbr);
-
-                // work on each county ==> populationNums and vaccinatedNums
-                stateCovid.forEach(ele=>{ 
-                    // console.log(ele.population); 
-                    fullyVaccinated[ele.state] ||= 0;
-                    const countyname = ele.county;                   
-                    const population = (typeof ele.population === "undefined") ? 0 :  ele.population;
-
-                    let vaccinatedNums = stateVaccinated.filter(ele => ele.recip_county.includes(countyname)).map(ele=> ele.completeness_pct)[0];                   
-                    vaccinatedNums = (typeof vaccinatedNums === "undefined") ? 0 :  vaccinatedNums;                    
-                    vaccinatedNums = Math.floor(parseInt(population) * (parseInt(vaccinatedNums)/100));
-
-                    fullyVaccinated[ele.state] += vaccinatedNums;                   
-                })
-
+            const stateName = stateabbrdata[i].State;
+            const stateAbbr = stateabbrdata[i].Abbr;
+            const stateVaccinated= vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
+                if(stateVaccinated.length !== 0){
+                    fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
+                    // console.log(fullyVaccinated);
+                }
             }
 
-            for (const [key, value] of Object.entries(fullyVaccinated)) {              
-                fullyVaccinatedPercentage[key] = Math.floor(value / population[key] * 100);
-            }   
+            let deathCase = {};
+            let population = {};
+            let comfrimCase = {};
+            let confirmed_daily = {};
+     
+            dailyComfirmeddata.forEach(ele=>{   
+                // console.log(ele.date.split('T')[0]);
+                if (ele.date.split('T')[0] === updateCaseDate ){
+                    // console.log(ele.date.split('T')[0]);
+                    deathCase[ele.state] ||= 0;
+                    population[ele.state] ||= 0;
+                    comfrimCase[ele.state] ||= 0;                   
+                    deathCase[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
+                    population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
+                    comfrimCase[ele.state] += (typeof ele.confirmed === "undefined") ? 0 :  ele.confirmed;                    
+                }  
+                confirmed_daily[ele.state] ||= {}; 
+                confirmed_daily[ele.state][ele.date.split('T')[0]] ||= 0;
+                confirmed_daily[ele.state][ele.date.split('T')[0]] += (typeof ele.confirmed_daily === "undefined") ? 0 :  ele.confirmed_daily;                        
+            })
 
-        
             svg.selectAll('path')
                 .data(statesData)
                 .enter().append('path')
                 .attr('class', 'states')
-                .attr('d', path) 
+                .attr('d', path)
+                .attr('fill' , (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name])) 
                 .on('mouseout', tip.hide) 
                 .on('mouseover', (event,d)=>{
-
-                    const stateName = d.properties.name;
-                    const stateCovid = coviddata.filter(ele => ele.state === stateName);
-
-                    let confirmed = 0;
-                    let deaths =0 ;
-
-                    stateCovid.forEach(ele=>{ 
-                        deaths += ele.deaths;
-                        confirmed += ele.confirmed;  
-                    })
-                    
-                    let tipObject = `<div class='tipContext'><strong>` + d.properties.name +`</strong>`
-                                        + `<br>Totally Cases:  ` + confirmed 
-                                        + `<br>Totally Deaths: ` + deaths
-                                        + `<br>People Fully Vaccinated: ${fullyVaccinatedPercentage[stateName]}% </div><br>` ;
-                  
-                    tipObject += `<div id='tipDiv'></div>`;
-                
                    
                     current_position =  d3.pointer(event);
-                    // console.log(current_position[0]);
+                    // // console.log(current_position[0]);
 
 
-
-
+                    let tipObject = `<div class='tipContext'><strong>` + d.properties.name + `</strong>`
+                                     + `<br>Totally Cases:  ` + comfrimCase[d.properties.name]
+                                     + `<br>Totally Deaths: ` +  deathCase[d.properties.name]
+                                     + `<br>Total Doses Administered rate: ${fullyVaccinated[d.properties.name]} </div><br>` ;
+                    tipObject += `<div id='tipDiv'></div>`;
                     tip.show(event, tipObject);
 
-
-
-                    // console.log(dailyComfirmeddata);
-                    // console.log("=======");
-
-                    let dailyComfirmed = [];
-                    let dailySataeComfirmedData = dailyComfirmeddata.filter(ele=> ele.state === stateName);
-                    let current_day;
-                    let dailyComfirmedObj = {};
-                    let confirmed_daily;
-                    let date;
-
-                    dailySataeComfirmedData.forEach((ele, i)=>{ 
-                    
-                            if (i === 0){                                                                           
-                                date = ele.date;
-                                confirmed_daily = 0;
-                                current_day = ele.date;
-                            }
-                            
-                            if (current_day !== ele.date){
-                                dailyComfirmedObj = {
-                                    "date" : date,
-                                    "confirmed_daily" :confirmed_daily
-                                }
-                                dailyComfirmed.push(dailyComfirmedObj);
-                                let dailyComfirmedObj = {};
-                                date = ele.date;
-                                confirmed_daily= 0;
-                                current_day = ele.date;
-                                // console.log("not same date");
-                            }
-                            else{
-                                // console.log("Same date");
-                                if(ele.confirmed_daily > 0) confirmed_daily += ele.confirmed_daily;
-                            }
-
-                            if (i ===(dailySataeComfirmedData.length-1)){
-                                dailyComfirmedObj = {
-                                    "date" : date,
-                                    "confirmed_daily" :confirmed_daily
-                                }
-                                dailyComfirmed.push(dailyComfirmedObj);
-                            }                                             
-                            
-                    })  
-
+                   let confirmed_daily_case = {};
+                   let dailyComfirmed = [];
                    
+                   Object.keys(confirmed_daily[d.properties.name]).forEach(ele=>{
+                        confirmed_daily_case["date"] = ele;
+                        confirmed_daily_case["confirmed_daily"] = confirmed_daily[d.properties.name][ele];
+                        dailyComfirmed.push(confirmed_daily_case);
+                        confirmed_daily_case = {};
+                   })
 
-                    let dataset1 = dailyComfirmed;
+                    let dataset1 = dailyComfirmed ;
                     var formatTime = d3.timeFormat("%Y-%m-%d");
                     dataset1.forEach(function(d) {
                         d.date = new Date(formatTime(new Date(d.date)));
@@ -280,10 +200,11 @@ class Map {
 
                    
                     let line = d3.line()
-                    .x(function(d) {              
-                        return xScale(d.date); }) 
-                    .y(function(d) {                         
-                        return yScale(d.confirmed_daily); }) 
+                        .x(function(d) {  
+                            console.log(d.date);            
+                            return xScale(d.date); }) 
+                        .y(function(d) {                         
+                            return yScale(d.confirmed_daily); }) 
                         
                     tipSVG.append("path")
                         .datum(dataset1) 
@@ -297,19 +218,49 @@ class Map {
 
                                             
                 })                
-                .attr('fill' , (d,i) => getColor(d.properties.name, fullyVaccinatedPercentage[d.properties.name])); 
+                ; 
              
 
 
         };
 
-        //colorRange pattern 1
+        // //colorRange pattern 1
         let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
         '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b'];
-
-        let getColor = (d, fullyVaccinatedPercentage) => {      
-           return colorRange[Math.floor(fullyVaccinatedPercentage/10)];
-        }
+       
+        let getColor = (d, fullyVaccinatedNum) => {      
+            //    return colorRange[Math.floor(fullyVaccinatedPercentage/10)];
+                if(fullyVaccinatedNum <= 0 ){
+                    return colorRange[0]
+                }
+                else if (fullyVaccinatedNum > 1 && fullyVaccinatedNum < 190000){
+                    return colorRange[1]
+                }
+                else if (fullyVaccinatedNum > 190001 && fullyVaccinatedNum < 200000){
+                    return colorRange[2]
+                }
+                else if (fullyVaccinatedNum > 200001 && fullyVaccinatedNum < 210000){
+                    return colorRange[3]
+                }
+                else if (fullyVaccinatedNum > 210001 && fullyVaccinatedNum < 220000){
+                    return colorRange[4]
+                }
+                else if (fullyVaccinatedNum > 220001 && fullyVaccinatedNum < 230000){
+                    return colorRange[5]
+                }
+                else if (fullyVaccinatedNum > 230001 && fullyVaccinatedNum < 240000){
+                    return colorRange[6]
+                }
+                else if (fullyVaccinatedNum > 240001 && fullyVaccinatedNum < 250000){
+                    return colorRange[7]
+                }
+                else if (fullyVaccinatedNum > 250001 && fullyVaccinatedNum < 260000){
+                    return colorRange[8]
+                }
+                else if (fullyVaccinatedNum > 260001){
+                    return colorRange[9]
+                }
+            }
 
     }
 
