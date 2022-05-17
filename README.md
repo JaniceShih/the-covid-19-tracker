@@ -8,7 +8,6 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 - Simply Fast to Get Result
 
 - Visulization Result
-
 ---
 
 ## Functionality & MVPs
@@ -22,13 +21,6 @@ In The COVID Tracking Project, users will be able to:
 - Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
 
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
-
----
-
-## Screenshot 
-
-
-![](https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/index.png)
 
 ---
 

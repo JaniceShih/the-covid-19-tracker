@@ -1,6 +1,6 @@
 import Fetch from "./fetch"
 
-const stateURL = "./src/json/usa.json"; 
+const stateURL = "src/json/usa.json"; 
 const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 
 let date = new Date();
@@ -31,7 +31,7 @@ class Map {
         fetch.getData(stateURL).then(data => {                
              
             fetch.getData(vaccinatedUrl).then(vaccinatedata => {           
-                d3.csv("./src/csv/usa_state_abb.csv")
+                d3.csv("src/csv/usa_state_abb.csv")
                 .then((stateabbrdata, error)=>{                        
                     if(error){
                         console.log(error);
@@ -99,10 +99,8 @@ class Map {
             let comfrimCase = {};
             let confirmed_daily = {};
      
-            dailyComfirmeddata.forEach(ele=>{   
-                // console.log(ele.date.split('T')[0]);
-                if (ele.date.split('T')[0] === updateCaseDate ){
-                    // console.log(ele.date.split('T')[0]);
+            dailyComfirmeddata.forEach(ele=>{  
+                if (ele.date.split('T')[0] === updateCaseDate ){  
                     deathCase[ele.state] ||= 0;
                     population[ele.state] ||= 0;
                     comfrimCase[ele.state] ||= 0;                   
@@ -147,8 +145,14 @@ class Map {
 
                     let dataset1 = dailyComfirmed ;
                     var formatTime = d3.timeFormat("%Y-%m-%d");
+                    
                     dataset1.forEach(function(d) {
+                        // const arr = d.date.split("-")
+                        // arr[2] =  parseInt(arr[2]) + 1;
+                        // const date = arr.join("-");
+                        // console.log(date);
                         d.date = new Date(formatTime(new Date(d.date)));
+                       
                         d.confirmed_daily = (d.confirmed_daily > 0 ) ? d.confirmed_daily : 0;
                     });
                     
@@ -160,8 +164,8 @@ class Map {
                         .append("svg")
                         .attr("width", chartWidth+70)
                         .attr("height", chartHeight+60);
-                 
-                    let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length - 1].date])
+       
+                    let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length-1].date])
                                 .range([0, chartWidth]);
                     let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })]).range([chartHeight, 0]);
                    
