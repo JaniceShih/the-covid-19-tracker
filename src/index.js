@@ -15,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
  
      // Get the <span> element that closes the modal
      var span = document.getElementsByClassName("close")[0];
- 
+
+
+
      // When the user clicks the button, open the modal 
      btn.onclick = function() {
           modal.style.display = "block";
@@ -33,13 +35,33 @@ document.addEventListener("DOMContentLoaded", () => {
           }
      }
 
-    // Fetch data  
-    // const main = document.getElementById("main"); 
-    // const apiData = new Fetch(main);
+         //Create the element using the createElement method.
+         var myDiv = document.createElement("div");
 
-    // D3 Chart
-    // const canvaChart = document.getElementsByClassName("canvaChart")
-    // new Chart(canvaChart);
+         //Set its unique ID.
+         myDiv.id = 'myDiv';
+         myDiv.className = 'loading-text';
+    
+         //Add your content to the DIV
+         myDiv.innerHTML = `
+              <span class="loading-text-words">L</span>
+              <span class="loading-text-words">O</span>
+              <span class="loading-text-words">A</span>
+              <span class="loading-text-words">D</span>
+              <span class="loading-text-words">I</span>
+              <span class="loading-text-words">N</span>
+              <span class="loading-text-words">G...</span>
+              `;
+    
+         //Finally, append the element to the HTML body
+         document.body.appendChild(myDiv);
+    
+         document.getElementById('canvaMap').style.display = 'none';
+         setTimeout(function () {
+              document.getElementById('myDiv').style.display = 'none';
+              document.getElementById('canvaMap').style.display = 'flex';
+          }, 4000)
+    
 
      // D3 Lengend
      const legend = document.getElementsByClassName("legend"); 
@@ -48,6 +70,8 @@ document.addEventListener("DOMContentLoaded", () => {
      // D3 Map
      const canvaMap = document.getElementsByClassName("canvaMap"); 
      new Map(canvaMap);   
+
+     
     
 
 })

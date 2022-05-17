@@ -57,6 +57,18 @@ a:hover{
 
 }
 
+.container{
+  position: relative;
+  min-height: 90vh;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;  
+}
+
 
 .states {
     stroke: #fff;
