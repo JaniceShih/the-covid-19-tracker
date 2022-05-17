@@ -19,3 +19,31 @@ In The COVID Tracking Project, users will be able to:
 - Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
 
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
+
+
+## Languages:
+
+- HTML
+
+- CSS
+
+- JavaScript
+
+
+## Libraries, APIs
+
+### Libraries:
+
+- D3.js
+
+### API:
+
+- REST API MongoDB COVID-19 Open Data
+
+- CDC Vaccinated Data
+
+## Upcoming Features
+
+### Search Function:
+
+- Show List and Chart of Result base on Search keyword.
