@@ -201,7 +201,7 @@ class Map {
                    
                     let line = d3.line()
                         .x(function(d) {  
-                            console.log(d.date);            
+                            // console.log(d.date);            
                             return xScale(d.date); }) 
                         .y(function(d) {                         
                             return yScale(d.confirmed_daily); }) 
