@@ -6,17 +6,16 @@ const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 let date = new Date();
 const year = date.getFullYear();
 const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
-const day = date.getDate();
+const day = date.getDate()-1;
 const currentDate= year + `-` + month + `-` +  day;
 const maxDate= year + `-` + month + `-` +  (date.getDate());
 const updateCaseDate = year + `-` + month + `-` +  (date.getDate()-1);
 
 date.setDate(date.getDate() - 7);
 let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  date.getDate();
-// console.log(weekage);
 
 const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${weekage}T00:00:00.000Z&max_date=${maxDate}T00:00:00.000Z`;
-// console.log(dailyComfirmedUrl);
+
 
 class Map {
     constructor(ele){
@@ -84,8 +83,7 @@ class Map {
 
                          
 
-            // color map state base on Total Doses Administered Reported  
-            
+            // color map state base on Total Doses Administered Reported              
             let fullyVaccinated = {};
             for (let i = 0; i < stateabbrdata.length; i++) {
             const stateName = stateabbrdata[i].State;
@@ -93,7 +91,6 @@ class Map {
             const stateVaccinated= vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
                 if(stateVaccinated.length !== 0){
                     fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
-                    // console.log(fullyVaccinated);
                 }
             }
 
@@ -128,7 +125,6 @@ class Map {
                 .on('mouseover', (event,d)=>{
                    
                     current_position =  d3.pointer(event);
-                    // // console.log(current_position[0]);
 
 
                     let tipObject = `<div class='tipContext'><strong>` + d.properties.name + `</strong>`
@@ -153,11 +149,10 @@ class Map {
                     var formatTime = d3.timeFormat("%Y-%m-%d");
                     dataset1.forEach(function(d) {
                         d.date = new Date(formatTime(new Date(d.date)));
-                        d.confirmed_daily = (d.confirmed_daily > 0) ? confirmed_daily : 0;
+                        d.confirmed_daily = (d.confirmed_daily > 0 ) ? d.confirmed_daily : 0;
                     });
                     
-                    // console.log(dataset1);
-
+  
                     const chartWidth = 250;
                     const chartHeight = 80;
 
