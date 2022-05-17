@@ -1,6 +1,6 @@
 import Fetch from "./fetch"
 
-const stateURL = "https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/json/usa.json"; 
+const stateURL = "./src/json/usa.json"; 
 const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 
 let date = new Date();
@@ -32,7 +32,7 @@ class Map {
         fetch.getData(stateURL).then(data => {                
              
             fetch.getData(vaccinatedUrl).then(vaccinatedata => {           
-                d3.csv("https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/csv/usa_state_abb.csv")
+                d3.csv("./src/csv/usa_state_abb.csv")
                 .then((stateabbrdata, error)=>{                        
                     if(error){
                         console.log(error);
@@ -64,7 +64,7 @@ class Map {
             // Initialize tooltip
             let tip = d3.tip()
                         .attr('class', 'd3-tip')
-                        .offset([-50, 100])
+                        .offset([-50, 150])
                         .html((EVENT,d)=> d);
                         // .html(
                         //     "<p>Opioid-involved deaths over time in</p>
@@ -138,6 +138,7 @@ class Map {
                     tipObject += `<div id='tipDiv'></div>`;
                     tip.show(event, tipObject);
 
+
                    let confirmed_daily_case = {};
                    let dailyComfirmed = [];
                    
@@ -152,7 +153,7 @@ class Map {
                     var formatTime = d3.timeFormat("%Y-%m-%d");
                     dataset1.forEach(function(d) {
                         d.date = new Date(formatTime(new Date(d.date)));
-                        d.confirmed_daily = d.confirmed_daily;
+                        d.confirmed_daily = (d.confirmed_daily > 0) ? confirmed_daily : 0;
                     });
                     
                     // console.log(dataset1);
@@ -214,13 +215,8 @@ class Map {
                         .style("fill", "none")
                         .style("stroke", "#2584ff")
                         .style("stroke-width", "2");
-
-
-                                            
                 })                
                 ; 
-             
-
 
         };
 
