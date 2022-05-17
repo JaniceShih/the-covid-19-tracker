@@ -1,6 +1,6 @@
 import Fetch from "./fetch"
 
-const stateURL = "./src/json/usa.json"; 
+const stateURL = "https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/json/usa.json"; 
 const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 
 let date = new Date();
@@ -32,7 +32,7 @@ class Map {
         fetch.getData(stateURL).then(data => {                
              
             fetch.getData(vaccinatedUrl).then(vaccinatedata => {           
-                d3.csv("./src/csv/usa_state_abb.csv")
+                d3.csv("https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/csv/usa_state_abb.csv")
                 .then((stateabbrdata, error)=>{                        
                     if(error){
                         console.log(error);
