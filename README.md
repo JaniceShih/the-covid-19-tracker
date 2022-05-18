@@ -20,6 +20,8 @@ In The COVID Tracking Project, users will be able to:
 
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
 
+![splash page demo](https://github.com/JaniceShih/the-covid-19-tracker/blob/main/src/images/the_covid19_tracker.gif?raw=true)
+
 ## Languages:
 
 - HTML
