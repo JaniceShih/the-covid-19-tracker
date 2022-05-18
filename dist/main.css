@@ -427,6 +427,10 @@ a:hover {
   fill: rgb(165, 196, 207);
 }
 
+.lenged {
+  cursor: pointer;
+}
+
 .d3-tip {
   padding: 10px;
   background: #fff;

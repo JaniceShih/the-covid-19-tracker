@@ -17,15 +17,11 @@ class Lenged {
                
         let  keys = ['No Data','1', '190001', '200001', '210001', '220001', '230001','240001', '250001', '260001+'];       
 
-        //colorRange pattern 1
+        //colorRange pattern
         let  colorRange = ['#e1f1ff', '#baddff', '#90c6ff', '#88b7fa', '#79b8bf',
         '#5d99bc','#4c7ab1','#3a529b', '#2c3084', '#18205b'];
-        
-        // let  color = d3.scaleOrdinal()
-        //             .domain(keys)
-        //             .range(colorRange);
 
-        // Add one dot in the legend for each name.
+ 
         let  size = 60;
         lenged.selectAll('mylenged')
                 .data(colorRange)
@@ -35,9 +31,22 @@ class Lenged {
                 .attr('x', function(d,i){ return size + i*(size+2)})      
                 .attr('width', 60)
                 .attr('height', 15)
+                .attr('class', 'lenged')
                 .style('fill', function(d, i){ return colorRange[i]})
+                .on("click", function (e) {                     
+                    const current = d3.select(this).style("fill");
+                    console.log(current)
+                    d3.selectAll('path').each(function(){
+                        if(current === d3.select(this).style("fill")){
+                            console.log(d3.select(this).style("fill"))
+                            d3.select(this).attr('fill', '#9a98a3')
+                        }else{
+                            d3.select(this).attr('fill', d3.select(this).style("color"))
+                        }
+                    })
+                })
 
-        // Add one dot in the legend for each name.
+ 
         lenged.selectAll('mylabels')
                 .data(keys)
                 .enter()
