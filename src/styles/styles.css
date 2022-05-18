@@ -28,7 +28,7 @@ body {
   color: var(--color-body-darker);
 }
 
-h1, h2{
+h1{
   font-size: 2.3rem;
   font-weight: 700;
   color: var(--color-headings);
@@ -60,6 +60,66 @@ a:hover{
 .container{
   position: relative;
   min-height: 90vh;
+  display: flex;
+  
+}
+
+.container__sidebar{
+  display: flex;
+  flex-direction: column;
+  flex:0.2;
+  padding: 15px 15px;
+}
+
+.container__sidebar--info{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: 0;
+  /* border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; */
+  box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238);
+  border-radius: 10px;
+ 
+}
+
+.container__sidebar--header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238); */
+
+}
+
+.container__sidebar--header > img{
+  margin-right: 10px;
+}
+
+.container__sidebar--info > h1{
+  padding: 10px 10px;
+}
+
+text > h2{
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.total{
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.daily{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: red;
+}
+
+.container__map{
+  flex:1;
 }
 
 .footer{

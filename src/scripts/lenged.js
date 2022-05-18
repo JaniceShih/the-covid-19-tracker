@@ -32,18 +32,28 @@ class Lenged {
                 .attr('width', 60)
                 .attr('height', 15)
                 .attr('class', 'lenged')
-                .style('fill', function(d, i){ return colorRange[i]})
+                .attr('color',function(d, i){ return colorRange[i]})
+                .attr('fill', function(d, i){ return colorRange[i]})
                 .on("click", function (e) {                     
-                    const current = d3.select(this).style("fill");
-                    console.log(current)
+                    const current = d3.select(this).style("color");
+                  
+                    if(d3.select(this).style("fill") === current){
+                        d3.select(this).attr('fill', '#9a98a3')
+                    }else{
+                        d3.select(this).attr('fill', d3.select(this).style("color"))
+                    }               
+                    
+
                     d3.selectAll('path').each(function(){
                         if(current === d3.select(this).style("fill")){
-                            console.log(d3.select(this).style("fill"))
+                    
                             d3.select(this).attr('fill', '#9a98a3')
-                        }else{
+                        }else if(current === d3.select(this).style("color"))
+                        {
                             d3.select(this).attr('fill', d3.select(this).style("color"))
                         }
                     })
+
                 })
 
  

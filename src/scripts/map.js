@@ -98,7 +98,12 @@ class Map {
             let population = {};
             let comfrimCase = {};
             let confirmed_daily = {};
+            let totalCases = 0;
+            let totalDeaths = 0;
+            let dailyCases = 0;
+            let dailyDeaths = 0;
      
+            console.log(dailyComfirmeddata);
             dailyComfirmeddata.forEach(ele=>{  
                 if (ele.date.split('T')[0] === updateCaseDate ){  
                     deathCase[ele.state] ||= 0;
@@ -106,12 +111,34 @@ class Map {
                     comfrimCase[ele.state] ||= 0;                   
                     deathCase[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
                     population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
-                    comfrimCase[ele.state] += (typeof ele.confirmed === "undefined") ? 0 :  ele.confirmed;                    
+                    comfrimCase[ele.state] += (typeof ele.confirmed === "undefined") ? 0 :  ele.confirmed;
+
+                    totalCases +=  ele.confirmed;
+                    totalDeaths +=  ele.deaths;
+                    dailyCases +=  ele.confirmed_daily; 
+                    dailyDeaths += ele.deaths_daily; 
                 }  
                 confirmed_daily[ele.state] ||= {}; 
                 confirmed_daily[ele.state][ele.date.split('T')[0]] ||= 0;
-                confirmed_daily[ele.state][ele.date.split('T')[0]] += (typeof ele.confirmed_daily === "undefined") ? 0 :  ele.confirmed_daily;                        
+                confirmed_daily[ele.state][ele.date.split('T')[0]] += (typeof ele.confirmed_daily === "undefined") ? 0 :  ele.confirmed_daily;
+                                  
             })
+
+
+            // <h2>Cases</h2>
+            //   <div class="totalCases"> </div>
+            //   <h2>Deaths</h2>
+            //   <div class="totalDeaths"> </div>
+            d3.select(".container__sidebar--info").append('text')                
+                    // .attr('text-anchor', 'left')
+                    .style('font-family', 'Helvetica')
+                    .style('font-size', 12)
+                    .html( `<h2> Cases </h2>
+                            <div class="total"> ` + totalCases + `<span class="daily"> +` + dailyCases + `</span> </div>
+                            <h2> Deaths </h2>
+                            <div class="total"> ` + totalDeaths + `<span class="daily"> +` + dailyDeaths + `</span> </div>`)
+                
+            
 
             svg.selectAll('path')
                 .data(statesData)
@@ -127,8 +154,8 @@ class Map {
 
 
                     let tipObject = `<div class='tipContext'><strong>` + d.properties.name + `</strong>`
-                                     + `<br>Totally Cases:  ` + comfrimCase[d.properties.name]
-                                     + `<br>Totally Deaths: ` +  deathCase[d.properties.name]
+                                     + `<br>Total Cases:  ` + comfrimCase[d.properties.name]
+                                     + `<br>Total Deaths: ` +  deathCase[d.properties.name]
                                      + `<br>Total Doses Administered rate: ${fullyVaccinated[d.properties.name]} </div><br>` ;
                     tipObject += `<div id='tipDiv'></div>`;
                     tip.show(event, tipObject);
