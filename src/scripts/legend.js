@@ -1,4 +1,4 @@
-class Lenged {
+class Legend {
     constructor(ele){
         this.ele = ele;
         const d3Lenge = this.d3.bind(this.ele);
@@ -10,7 +10,7 @@ class Lenged {
         const width = 750;
         const height = 80;
     
-        let lenged = d3.select(".legend").append('svg')
+        let legend = d3.select(".legend").append('svg')
                     .attr('width', width)
                     .attr('height', height);
 
@@ -23,7 +23,7 @@ class Lenged {
 
  
         let  size = 60;
-        lenged.selectAll('mylenged')
+        legend.selectAll('mylegend')
                 .data(colorRange)
                 .enter()
                 .append('rect')                       
@@ -31,7 +31,7 @@ class Lenged {
                 .attr('x', function(d,i){ return size + i*(size+2)})      
                 .attr('width', 60)
                 .attr('height', 15)
-                .attr('class', 'lenged')
+                .attr('class', 'legend')
                 .attr('color',function(d, i){ return colorRange[i]})
                 .attr('fill', function(d, i){ return colorRange[i]})
                 .on("click", function (e) {     
@@ -54,26 +54,26 @@ class Lenged {
                             d3.select(this).attr('fill', d3.select(this).style("color"))
                         }
                     })
+
+                    // const currentlegend = d3.select(this).style("color");
                     
-                    // const currentLenged = d3.select(this).style("color");
-                    
-                    // if(d3.select(this).style("fill") === currentLenged){
+                    // if(d3.select(this).style("fill") === currentlegend){
                     //     d3.select(this).attr('fill', '#9a98a3')
                     // }else{
                     //     d3.select(this).attr('fill', d3.select(this).style("color"))
                     // }               
-                    // const fillLenged = d3.select(this).style("fill");
+                    // const filllegend = d3.select(this).style("fill");
 
                     // d3.selectAll('path').each(function(){
-                    //     if(currentLenged === fillLenged  &&  d3.select(this).style("color") === currentLenged ){
+                    //     if(currentlegend === filllegend  &&  d3.select(this).style("color") === currentlegend ){
                     //         d3.select(this).attr('highlight', 'null')
                     //         d3.select(this).attr('fill', d3.select(this).style("color"))
-                    //     }else if( d3.select(this).style("color") === currentLenged){
+                    //     }else if( d3.select(this).style("color") === currentlegend){
                     //         d3.select(this).attr('highlight', 'highlight')
                     //         d3.select(this).attr('fill', d3.select(this).style("color"))
                     //     }
-                    //     if(d3.select(this).style("color")  !== currentLenged && d3.select(this).attr("highlight") ==='null' ){    
-                    //         if(currentLenged === fillLenged){
+                    //     if(d3.select(this).style("color")  !== currentlegend && d3.select(this).attr("highlight") ==='null' ){    
+                    //         if(currentlegend === filllegend){
                     //             d3.select(this).attr('fill', d3.select(this).style("color"))
                     //         }else{
                     //             d3.select(this).attr('fill', '#9a98a3')
@@ -87,7 +87,7 @@ class Lenged {
                 })
 
  
-        lenged.selectAll('mylabels')
+        legend.selectAll('mylabels')
                 .data(keys)
                 .enter()
                 .append('text')
@@ -98,7 +98,7 @@ class Lenged {
                 .attr('text-anchor', 'left')
                 .style('alignment-baseline', 'middle')  
 
-        lenged.append("text")
+        legend.append("text")
             .attr("x",size)
             .attr("y", 20)          
             // .text("% People Death, 10000 as a percent");
@@ -109,4 +109,4 @@ class Lenged {
 }
 
 
-export default Lenged;
+export default Legend;

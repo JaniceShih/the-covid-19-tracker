@@ -2,7 +2,7 @@
 // import Fetch from "./scripts/Fetch"
 
 import Map from "./scripts/map"
-import Lenged from "./scripts/lenged"
+import Legend from "./scripts/legend"
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
      // D3 Lengend
      const legend = document.getElementsByClassName("legend"); 
-     new Lenged(legend); 
+     new Legend(legend); 
 
      // D3 Map
      const canvaMap = document.getElementsByClassName("canvaMap"); 
