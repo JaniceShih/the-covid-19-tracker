@@ -103,7 +103,7 @@ class Map {
             let dailyCases = 0;
             let dailyDeaths = 0;
      
-            console.log(dailyComfirmeddata);
+            // console.log(dailyComfirmeddata);
             dailyComfirmeddata.forEach(ele=>{  
                 if (ele.date.split('T')[0] === updateCaseDate ){  
                     deathCase[ele.state] ||= 0;
@@ -124,11 +124,6 @@ class Map {
                                   
             })
 
-
-            // <h2>Cases</h2>
-            //   <div class="totalCases"> </div>
-            //   <h2>Deaths</h2>
-            //   <div class="totalDeaths"> </div>
             d3.select(".container__sidebar--info").append('text')                
                     // .attr('text-anchor', 'left')
                     .style('font-family', 'Helvetica')
@@ -144,7 +139,7 @@ class Map {
                 .data(statesData)
                 .enter().append('path')
                 .attr('class', 'states')
-                .attr('d', path)
+                .attr('d', path)      
                 .attr('color', (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name]))
                 .attr('fill' , (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name])) 
                 .on('mouseout', tip.hide) 

@@ -34,7 +34,8 @@ class Lenged {
                 .attr('class', 'lenged')
                 .attr('color',function(d, i){ return colorRange[i]})
                 .attr('fill', function(d, i){ return colorRange[i]})
-                .on("click", function (e) {                     
+                .on("click", function (e) {     
+                    
                     const current = d3.select(this).style("color");
                   
                     if(d3.select(this).style("fill") === current){
@@ -53,6 +54,35 @@ class Lenged {
                             d3.select(this).attr('fill', d3.select(this).style("color"))
                         }
                     })
+                    
+                    // const currentLenged = d3.select(this).style("color");
+                    
+                    // if(d3.select(this).style("fill") === currentLenged){
+                    //     d3.select(this).attr('fill', '#9a98a3')
+                    // }else{
+                    //     d3.select(this).attr('fill', d3.select(this).style("color"))
+                    // }               
+                    // const fillLenged = d3.select(this).style("fill");
+
+                    // d3.selectAll('path').each(function(){
+                    //     if(currentLenged === fillLenged  &&  d3.select(this).style("color") === currentLenged ){
+                    //         d3.select(this).attr('highlight', 'null')
+                    //         d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //     }else if( d3.select(this).style("color") === currentLenged){
+                    //         d3.select(this).attr('highlight', 'highlight')
+                    //         d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //     }
+                    //     if(d3.select(this).style("color")  !== currentLenged && d3.select(this).attr("highlight") ==='null' ){    
+                    //         if(currentLenged === fillLenged){
+                    //             d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //         }else{
+                    //             d3.select(this).attr('fill', '#9a98a3')
+                    //         }                   
+                           
+                    //     }
+                       
+                       
+                    // })
 
                 })
 
