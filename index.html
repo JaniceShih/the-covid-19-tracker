@@ -47,57 +47,62 @@
       </header>
       
     
-      <div class="container">
-          <div class="container__sidebar">            
-            <div class="container__sidebar--info"></div>
-            <div class="container__sidebar--chart">
-              <div id="canvaChart__select" class="canvaChart__select"></div>
-              <div id="canvaChart__header" class="canvaChart__header"></div>
-              <div id="canvaChart" class="canvaChart"></div>
-            </div>
-           
-          </div>
-          <div class="container__map">            
-              <div class="legend"></div>
+     <div class="container">
+       <div class="container__sidebar">            
+         <div class="container__sidebar--info"></div>
+         <div class="container__sidebar--chart">
+           <div id="canvaChart__select" class="canvaChart__select"></div>
+           <div id="canvaChart__header" class="canvaChart__header"></div>
+           <div id="canvaChart" class="canvaChart"></div>
+         </div>
         
-              <div id='canvaMap' class="canvaMap"></div>
-        
-              <div id="description" class="footer">
-                  DataSource: Covid-19 Cases/Deathes 
-                  <a href="https://documenter.getpostman.com/view/1678623/SzfDx54T?version=latest#intro" target="_blank">
-                      REST API MongoDB COVID-19 Open Data
-                  </a> 
-                    Vaccinations
-                  <a href="https://data.cdc.gov/resource/unsk-b7fc.json" target="_blank">
-                      CDC
-                  </a> .
-              </div>
-          </div>
-
+       </div>
+    
+         <div class="container__map">            
+             <div class="legend"></div>
+       
+             <div id='canvaMap' class="canvaMap"></div>
+       
+             
+         </div>
+         <div id="description" class="footer">
+          DataSource: Covid-19 Cases/Deathes 
+          <a href="https://documenter.getpostman.com/view/1678623/SzfDx54T?version=latest#intro" target="_blank">
+              REST API MongoDB COVID-19 Open Data
+          </a> 
+            Vaccinations
+          <a href="https://data.cdc.gov/resource/unsk-b7fc.json" target="_blank">
+              CDC
+          </a> .
       </div>
+
+     </div>
+
+     
+
 
 
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
     <!-- Modal content -->
-    <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>COVID-19Tracker</h2>
-   
-    <p>The website provide user to see COVID 19 cases, deaths and vaccinated of US state on data visualization chart or map.</p>
-    <ul>
-      <li> Super Easy to Use </li>
-      <li> Simply Fast to Get Result </li>
-      <li> Visulization Result</li>
-    </ul>
-  
-    <h3>  How to Use: </h3>
-      <p>1. User can see colorly USA States Map base on Covid-19 Total Doses Administered rate (per 100,000 of the Total Population) and legend bar.</p>
-      <p>2. User can see highlight states on the map when click on each color of Legend bar.</p>
-      <p>3. Mouse havor each Stae render Tip with Covid-19 cases and deaths data from API.</p>
-      <p>4. Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.</p>
-    </div>
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>COVID-19Tracker</h2>
+      
+        <p>The website provide user to see COVID 19 cases, deaths and vaccinated of US state on data visualization chart or map.</p>
+        <ul>
+          <li> Super Easy to Use </li>
+          <li> Simply Fast to Get Result </li>
+          <li> Visulization Result</li>
+        </ul>
+    
+        <h3>  How to Use: </h3>
+        <p>1. User can see colorly USA States Map base on Covid-19 Total Doses Administered rate (per 100,000 of the Total Population) and legend bar.</p>
+        <p>2. User can see highlight states on the map when click on each color of Legend bar.</p>
+        <p>3. Mouse havor each Stae render Tip with Covid-19 cases and deaths data from API.</p>
+        <p>4. Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.</p>
+      </div>
 
     </div>
 

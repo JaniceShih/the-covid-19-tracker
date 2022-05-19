@@ -192,7 +192,7 @@ class Map {
                 .enter().append('path')
                 .attr('class', 'states')
                 .attr('d', path)   
-                // .attr('highlight', 'null')   
+                .attr('highlight', 'null')   
                 .attr('color', (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name]))
                 .attr('fill' , (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name])) 
                 .on('mouseout', tip.hide) 
