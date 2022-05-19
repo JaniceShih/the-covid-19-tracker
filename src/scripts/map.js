@@ -142,7 +142,7 @@ class Map {
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
 
-            const width = 1150;
+            const width = 1000;
             const height = 600;
         
             let svg = d3.select(".canvaMap").append('svg')
@@ -164,7 +164,7 @@ class Map {
             svg.call(tip)
 
             let projection = d3.geoAlbersUsa()
-                                .scale(1150) // mess with this if you want
+                                .scale(1000) // mess with this if you want
                                 .translate([width / 2, height / 2]);
 
         

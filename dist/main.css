@@ -415,7 +415,7 @@ a:hover {
 .container__sidebar {
   display: flex;
   flex-direction: column;
-  /* flex:0.25; */
+  flex: 0.25;
   padding: 20px 15px;
 }
 
