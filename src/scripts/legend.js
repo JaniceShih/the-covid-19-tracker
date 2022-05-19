@@ -93,7 +93,7 @@ class Legend {
                 .append('text')
                 .attr('y', size)
                 .attr('x', function(d,i){ return size + i*(size+2)}) 
-                .style('fill', 'darkgrey')
+                .style('fill', '#5c5577')
                 .text(function(d, i){ return keys[i]})
                 .attr('text-anchor', 'left')
                 .style('alignment-baseline', 'middle')  
