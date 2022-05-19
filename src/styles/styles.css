@@ -67,7 +67,7 @@ a:hover{
   display: flex;
   flex-direction: column;
   flex:0.25;
-  padding: 15px 15px;
+  padding: 20px 15px;
 }
 
 .container__sidebar--header{
@@ -137,10 +137,14 @@ text > h2{
   align-self: center;
 }
 
+.canvaChart__header{
+  font-size: 1.25rem;
+}
+
 .canvaChart__select{
   margin-top: 30px;
   margin-bottom: 10px;
-  margin-left: 15px; 
+  margin-left: 10px; 
 }
 
 .canvaChart__select > select{
@@ -161,9 +165,12 @@ text > h2{
 
 .tipContext{
   padding-left: 10px;
+  padding-bottom: 10px;
   color: var(--color-body-darker);
   font-weight: 500;
+  line-height: 2;
 }
+
 
 .canvaChart__heading--primary{
   color: white;

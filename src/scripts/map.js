@@ -102,10 +102,10 @@ class Map {
                     const selectValue = d3.select('select').property('value')
 
                     d3.select(".canvaChart__header")                  
-                        .html( `<div class='tipContext'>`
-                        + `<span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
-                        + `<span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
-                        + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
+                            .html( `<div class='tipContext'>`
+                                + `<span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
+                                + `<span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
+                                + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
                     
                    
                     const linechart = new LineChart();

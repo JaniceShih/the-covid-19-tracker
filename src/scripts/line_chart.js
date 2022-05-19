@@ -61,7 +61,7 @@ class LineChart {
                .style("text-anchor", "end")
                .attr("dx", "-.8em")
                .attr("dy", ".15em")
-               .attr("transform", "rotate(-35)")
+               .attr("transform", "rotate(-28)")
              ;
          
          
