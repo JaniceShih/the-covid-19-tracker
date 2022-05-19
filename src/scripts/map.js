@@ -189,7 +189,7 @@ class Map {
                 .attr('color', (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name]))
                 .attr('fill' , (d,i) => getColor(d.properties.name, fullyVaccinated[d.properties.name])) 
                 .on('mouseout', tip.hide) 
-                .on('click', (event,d)=>{
+                .on('mouseover', (event,d)=>{
                    
                     current_position =  d3.pointer(event);
 
