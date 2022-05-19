@@ -36,53 +36,53 @@ class Legend {
                 .attr('fill', function(d, i){ return colorRange[i]})
                 .on("click", function (e) {     
                     
-                    // const current = d3.select(this).style("color");
+                    const current = d3.select(this).style("color");
                   
-                    // if(d3.select(this).style("fill") === current){
-                    //     d3.select(this).attr('fill', '#9a98a3')
-                    // }else{
-                    //     d3.select(this).attr('fill', d3.select(this).style("color"))
-                    // }               
-                    
-
-                    // d3.selectAll('path').each(function(){
-                    //     if(current === d3.select(this).style("fill")){
-                    
-                    //         d3.select(this).attr('fill', '#9a98a3')
-                    //     }else if(current === d3.select(this).style("color"))
-                    //     {
-                    //         d3.select(this).attr('fill', d3.select(this).style("color"))
-                    //     }
-                    // })
-
-                    const currentlegend = d3.select(this).style("color");
-                    
-                    if(d3.select(this).style("fill") === currentlegend){
+                    if(d3.select(this).style("fill") === current){
                         d3.select(this).attr('fill', '#9a98a3')
                     }else{
                         d3.select(this).attr('fill', d3.select(this).style("color"))
                     }               
-                    const filllegend = d3.select(this).style("fill");
+                    
 
                     d3.selectAll('path').each(function(){
-                        if(currentlegend === filllegend  &&  d3.select(this).style("color") === currentlegend ){
-                            d3.select(this).attr('highlight', 'null')
-                            d3.select(this).attr('fill', d3.select(this).style("color"))
-                        }else if( d3.select(this).style("color") === currentlegend){
-                            d3.select(this).attr('highlight', 'highlight')
+                        if(current === d3.select(this).style("fill")){
+                    
+                            d3.select(this).attr('fill', '#9a98a3')
+                        }else if(current === d3.select(this).style("color"))
+                        {
                             d3.select(this).attr('fill', d3.select(this).style("color"))
                         }
-                        if(d3.select(this).style("color")  !== currentlegend && d3.select(this).attr("highlight") ==='null' ){    
-                            if(currentlegend === filllegend){
-                                d3.select(this).attr('fill', d3.select(this).style("color"))
-                            }else{
-                                d3.select(this).attr('fill', '#9a98a3')
-                            }                   
-                           
-                        }
-                       
-                       
                     })
+
+                    // const currentlegend = d3.select(this).style("color");
+                    
+                    // if(d3.select(this).style("fill") === currentlegend){
+                    //     d3.select(this).attr('fill', '#9a98a3')
+                    // }else{
+                    //     d3.select(this).attr('fill', d3.select(this).style("color"))
+                    // }               
+                    // const filllegend = d3.select(this).style("fill");
+
+                    // d3.selectAll('path').each(function(){
+                    //     if(currentlegend === filllegend  &&  d3.select(this).style("color") === currentlegend ){
+                    //         d3.select(this).attr('highlight', 'null')
+                    //         d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //     }else if( d3.select(this).style("color") === currentlegend){
+                    //         d3.select(this).attr('highlight', 'highlight')
+                    //         d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //     }
+                    //     if(d3.select(this).style("color")  !== currentlegend && d3.select(this).attr("highlight") ==='null' ){    
+                    //         if(currentlegend === filllegend){
+                    //             d3.select(this).attr('fill', d3.select(this).style("color"))
+                    //         }else{
+                    //             d3.select(this).attr('fill', '#9a98a3')
+                    //         }                   
+                           
+                    //     }
+                       
+                       
+                    // })
 
                 })
 
