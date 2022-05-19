@@ -498,7 +498,8 @@ text > h2 {
 }
 
 .canvaChart__select > select:focus {
-  border: 1px solid rgb(238, 238, 238);
+  border: 0;
+  outline: 0;
 }
 
 .tipContext {
