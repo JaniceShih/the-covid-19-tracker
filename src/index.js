@@ -1,8 +1,8 @@
-// import Chart from "./scripts/Chart"
 // import Fetch from "./scripts/Fetch"
 
 import Map from "./scripts/map"
 import Legend from "./scripts/legend"
+// import Chart from "./scripts/chart"
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
      const canvaMap = document.getElementsByClassName("canvaMap"); 
      new Map(canvaMap);   
 
-     
+     // D3 Chart     
+     // const canvaChart = document.getElementsByClassName("canvaChart"); 
+     // new Chart(canvaChart);  
     
 
 })

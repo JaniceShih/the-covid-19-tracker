@@ -1,13 +1,3 @@
-import Fetch from "./Fetch"
-
-const d = new Date();
-const startDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + (d.getDate()-1);
-const endDate = d.getFullYear() + `-` + (((d.getMonth()+1) < 10 ? `0` : ``) + (d.getMonth()+1)) + `-` + d.getDate();
-const queryDate = `min_date=` + startDate + `&max_date=` +endDate;
-
-const apiUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${startDate}&max_date=${endDate}`;
-
-const stateAbb = "/src/csv/usa_sate_abb";
 
 class Chart {    
     constructor(ele){
@@ -18,19 +8,8 @@ class Chart {
 
 
     d3(){
-         // fetch api data
-         const fetch = new Fetch();
-                   
-        // console.log(data);
-        fetch.getData(apiUrl).then(coviddata => {
-            console.log(coviddata);
-            d3Chart(coviddata);
-        });       
+      
   
-
-        // d3 Chart
-        let d3Chart = (coviddata)=> {
-           
             const canvs = d3.select(".canvaChart");          
         
             // var dataArray = [4, 15, 34, 123,23];
@@ -48,8 +27,8 @@ class Chart {
     
     
             const svg = canvs.append('svg')
-            .attr("width", 450)
-            .attr("height", 450)
+            .attr("width", 250)
+            .attr("height", 300)
     
             
             const rect = svg.selectAll("rect");  
@@ -63,7 +42,7 @@ class Chart {
                 .attr("x", (d,i)=>i*25) 
                 .attr("y", (d,i)=> 300 - (d.height*2));
            
-        };
+            
 
     }
 

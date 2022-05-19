@@ -1,4 +1,5 @@
 import Fetch from "./fetch"
+import LineChart from "./line_chart";
 
 const stateURL = "src/json/usa.json"; 
 const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
@@ -49,6 +50,80 @@ class Map {
         
         // draw Map
         let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
+
+
+              // color map state base on Total Doses Administered Reported              
+              let fullyVaccinated = {};
+              for (let i = 0; i < stateabbrdata.length; i++) {
+              const stateName = stateabbrdata[i].State;
+              const stateAbbr = stateabbrdata[i].Abbr;
+              const stateVaccinated= vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
+                  if(stateVaccinated.length !== 0){
+                      fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
+                  }
+              }
+  
+              let deathCase = {};
+              let population = {};
+              let comfrimCase = {};
+              let confirmed_daily = {};
+              let totalCases = 0;
+              let totalDeaths = 0;
+              let dailyCases = 0;
+              let dailyDeaths = 0;
+       
+              // console.log(dailyComfirmeddata);
+              dailyComfirmeddata.forEach(ele=>{  
+                  if (ele.date.split('T')[0] === updateCaseDate ){  
+                      deathCase[ele.state] ||= 0;
+                      population[ele.state] ||= 0;
+                      comfrimCase[ele.state] ||= 0;                   
+                      deathCase[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
+                      population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
+                      comfrimCase[ele.state] += (typeof ele.confirmed === "undefined") ? 0 :  ele.confirmed;
+  
+                      totalCases +=  ele.confirmed;
+                      totalDeaths +=  ele.deaths;
+                      dailyCases +=  ele.confirmed_daily; 
+                      dailyDeaths += ele.deaths_daily; 
+                  }  
+                  confirmed_daily[ele.state] ||= {}; 
+                  confirmed_daily[ele.state][ele.date.split('T')[0]] ||= 0;
+                  confirmed_daily[ele.state][ele.date.split('T')[0]] += (typeof ele.confirmed_daily === "undefined") ? 0 :  ele.confirmed_daily;
+                                    
+              })
+
+
+
+            let select = d3.select(".canvaChart__select").append("select")
+                .attr("name", "name-list")
+                .attr('class','select')
+                .on("change", function (e) { 
+                    
+                    const selectValue = d3.select('select').property('value')
+                    const linechart = new LineChart();
+                    linechart.d3(confirmed_daily,  selectValue, '.canvaChart');
+                    
+                });
+
+            let options = select.selectAll("option")
+                .data(stateabbrdata)
+                .enter()
+                .append("option")
+                 ;
+
+            options.text(function(d) {               
+                return d.State;
+                })
+                .attr("value", function(d) {
+                return d.State;
+                }) 
+                ;
+
+            const selectValue = d3.select('select').property('value')
+            const linechart = new LineChart();
+            linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
+
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
 
@@ -79,50 +154,9 @@ class Map {
 
         
             let path = d3.geoPath()
-                         .projection(projection);
+                         .projection(projection);                         
 
-                         
-
-            // color map state base on Total Doses Administered Reported              
-            let fullyVaccinated = {};
-            for (let i = 0; i < stateabbrdata.length; i++) {
-            const stateName = stateabbrdata[i].State;
-            const stateAbbr = stateabbrdata[i].Abbr;
-            const stateVaccinated= vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
-                if(stateVaccinated.length !== 0){
-                    fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
-                }
-            }
-
-            let deathCase = {};
-            let population = {};
-            let comfrimCase = {};
-            let confirmed_daily = {};
-            let totalCases = 0;
-            let totalDeaths = 0;
-            let dailyCases = 0;
-            let dailyDeaths = 0;
-     
-            // console.log(dailyComfirmeddata);
-            dailyComfirmeddata.forEach(ele=>{  
-                if (ele.date.split('T')[0] === updateCaseDate ){  
-                    deathCase[ele.state] ||= 0;
-                    population[ele.state] ||= 0;
-                    comfrimCase[ele.state] ||= 0;                   
-                    deathCase[ele.state] += (typeof ele.deaths === "undefined") ? 0 :  ele.deaths;  
-                    population[ele.state] += (typeof ele.population === "undefined") ? 0 :  ele.population; 
-                    comfrimCase[ele.state] += (typeof ele.confirmed === "undefined") ? 0 :  ele.confirmed;
-
-                    totalCases +=  ele.confirmed;
-                    totalDeaths +=  ele.deaths;
-                    dailyCases +=  ele.confirmed_daily; 
-                    dailyDeaths += ele.deaths_daily; 
-                }  
-                confirmed_daily[ele.state] ||= {}; 
-                confirmed_daily[ele.state][ele.date.split('T')[0]] ||= 0;
-                confirmed_daily[ele.state][ele.date.split('T')[0]] += (typeof ele.confirmed_daily === "undefined") ? 0 :  ele.confirmed_daily;
-                                  
-            })
+          
 
             d3.select(".container__sidebar--info").append('text')                
                     // .attr('text-anchor', 'left')
@@ -154,89 +188,9 @@ class Map {
                                      + `<br>Total Doses Administered rate: ${fullyVaccinated[d.properties.name]} </div><br>` ;
                     tipObject += `<div id='tipDiv'></div>`;
                     tip.show(event, tipObject);
-
-
-                   let confirmed_daily_case = {};
-                   let dailyComfirmed = [];
-                   
-                   Object.keys(confirmed_daily[d.properties.name]).forEach(ele=>{
-                        confirmed_daily_case["date"] = ele;
-                        confirmed_daily_case["confirmed_daily"] = confirmed_daily[d.properties.name][ele];
-                        dailyComfirmed.push(confirmed_daily_case);
-                        confirmed_daily_case = {};
-                   })
-
-                    let dataset1 = dailyComfirmed ;
-                    var formatTime = d3.timeFormat("%Y-%m-%d");
-                    
-                    dataset1.forEach(function(d) {
-                        // const arr = d.date.split("-")
-                        // arr[2] =  parseInt(arr[2]) + 1;
-                        // const date = arr.join("-");
-                        // console.log(date);
-                        d.date = new Date(formatTime(new Date(d.date)));
-                       
-                        d.confirmed_daily = (d.confirmed_daily > 0 ) ? d.confirmed_daily : 0;
-                    });
-                    
-  
-                    const chartWidth = 250;
-                    const chartHeight = 80;
-
-                    let tipSVG = d3.select("#tipDiv")
-                        .append("svg")
-                        .attr("width", chartWidth+70)
-                        .attr("height", chartHeight+60);
-       
-                    let xScale = d3.scaleTime().domain([dataset1[0].date, dataset1[dataset1.length-1].date])
-                                .range([0, chartWidth]);
-                    let yScale = d3.scaleLinear().domain([0, d3.max(dataset1, function(d) { return d.confirmed_daily; })]).range([chartHeight, 0]);
-                   
-                    let g = tipSVG.append("g")
-                    .attr("transform", "translate(" + 50 + "," + 100 + ")");
-
-                    tipSVG.append('text')
-                        .attr('x', chartWidth/2 + 100)
-                        .attr('y', 135)
-                        .attr('text-anchor', 'middle')
-                        .style('font-family', 'Helvetica')
-                        .style('font-size', 12)
-                        .text('daily comfimed cases');
-
-                    
-                    g.append("g")
-                       .attr("transform", "translate(0," + -19 + ")")                      
-                        .call( d3.axisBottom()
-                        .scale(xScale).ticks(6).tickFormat(d3.timeFormat("%Y-%m-%d")))
-                        .selectAll("text")	
-                          .style("text-anchor", "end")
-                          .attr("dx", "-.8em")
-                          .attr("dy", ".15em")
-                          .attr("transform", "rotate(-25)")
-                        ;
-                    
-                    
-                    g.append("g")
-                        .attr("transform", "translate(" + 0 + "," + -100 + ")")
-                        .call( d3.axisLeft()
-                        .scale(yScale).ticks(2));
-
-                   
-                    let line = d3.line()
-                        .x(function(d) {  
-                            // console.log(d.date);            
-                            return xScale(d.date); }) 
-                        .y(function(d) {                         
-                            return yScale(d.confirmed_daily); }) 
-                        
-                    tipSVG.append("path")
-                        .datum(dataset1) 
-                        .attr("class", "line") 
-                        .attr("transform", "translate(" + 50 + "," + 0 + ")")
-                        .attr("d", line)
-                        .style("fill", "none")
-                        .style("stroke", "#2584ff")
-                        .style("stroke-width", "2");
+                    const linechart = new LineChart();
+                    linechart.d3(confirmed_daily, d.properties.name, '#tipDiv');
+                  
                 })                
                 ; 
 

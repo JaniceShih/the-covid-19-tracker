@@ -368,7 +368,7 @@ html {
 }
 
 body {
-  /* font-family: Inter, Arial, Helvetica, sans-serif; */
+  font-family: sans-serif;
   font-size: 1.4rem;
   line-height: 1.4;
   color: var(--color-body-darker);
@@ -408,6 +408,7 @@ a:hover {
   position: relative;
   min-height: 90vh;
   display: flex;
+  flex-direction: column;
 }
 
 .container__sidebar {
@@ -460,6 +461,24 @@ text > h2 {
   font-size: 1.2rem;
   font-weight: 600;
   color: red;
+}
+
+.canvaChart {
+  align-self: center;
+}
+
+.canvaChart__select {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  align-self: center;
+  background: var(--color-border);
+}
+
+.canvaChart__select > select {
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--color-body-darker);
 }
 
 .container__map {
@@ -551,9 +570,14 @@ text > h2 {
   margin-bottom: 1rem;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 900px) {
   .list--tick .list__item {
     padding-left: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
   }
 }
 /* Navigation Bar */
@@ -738,4 +762,7 @@ text > h2 {
   100% {
     filter: blur(3px);
   }
+}
+.bar {
+  fill: steelblue;
 }
