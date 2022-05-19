@@ -418,24 +418,27 @@ a:hover {
   padding: 15px 15px;
 }
 
+.container__sidebar--header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  /* border: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238); */
+}
+
 .container__sidebar--info {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: white;
-  border: 0;
   /* border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px; */
-  box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238);
+  box-shadow: 0 0 5px rgb(207, 207, 207);
   border-radius: 10px;
-}
-
-.container__sidebar--header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238); */
 }
 
 .container__sidebar--header > img {
@@ -463,6 +466,17 @@ text > h2 {
   color: red;
 }
 
+.container__sidebar--chart {
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 0 5px rgb(207, 207, 207);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .canvaChart {
   align-self: center;
 }
@@ -474,12 +488,13 @@ text > h2 {
 }
 
 .canvaChart__select > select {
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid rgb(238, 238, 238);
-  box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238);
   font-size: 1.2em;
-  font-weight: 500;
-  color: var(--color-body-darker);
+  font-weight: 700;
+  color: var(--color-body-headings);
+  background: rgb(238, 238, 238);
+  padding: 5px 20px;
 }
 
 .canvaChart__select > select:focus {
@@ -495,7 +510,7 @@ text > h2 {
 .canvaChart__heading--primary {
   color: white;
   padding: 10px 15px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
   border-radius: 10px;
   background-color: var(--color-primary);
@@ -540,7 +555,7 @@ text > h2 {
 }
 
 .d3-tip {
-  padding: 10px;
+  padding: 15px;
   background: #fff;
   color: rgb(69, 69, 69);
   border-radius: 15px;

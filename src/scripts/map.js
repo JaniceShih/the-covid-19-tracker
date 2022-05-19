@@ -168,13 +168,16 @@ class Map {
             let path = d3.geoPath()
                          .projection(projection);                         
 
-          
 
             d3.select(".container__sidebar--info").append('text')                
                     // .attr('text-anchor', 'left')
                     .style('font-family', 'Helvetica')
                     .style('font-size', 12)
-                    .html( `<h2> Cases </h2>
+                    .html( ` <div class="container__sidebar--header">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Flag_of_the_United_States_%28Pantone%29.svg/800px-Flag_of_the_United_States_%28Pantone%29.svg.png" width="30px" height="20">
+                                <h1>United States</h1>
+                            </div>
+                            <h2> Cases </h2>
                             <div class="total"> ` + totalCases + `<span class="daily"> +` + dailyCases + `</span> </div>
                             <h2> Deaths </h2>
                             <div class="total"> ` + totalDeaths + `<span class="daily"> +` + dailyDeaths + `</span> </div>`)
