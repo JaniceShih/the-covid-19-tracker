@@ -165,7 +165,7 @@ text > h2{
 
 .tipContext{
   padding-left: 10px;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   color: var(--color-body-darker);
   font-weight: 500;
   line-height: 2;

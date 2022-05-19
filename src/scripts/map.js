@@ -10,12 +10,13 @@ const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
 const day = date.getDate()-1;
 const currentDate= year + `-` + month + `-` +  day;
 const maxDate= year + `-` + month + `-` +  (date.getDate());
-const updateCaseDate = year + `-` + month + `-` +  (date.getDate()-1);
+const updateCaseDate = year + `-` + month + `-` +  (date.getDate()-2);
 
 date.setDate(date.getDate() - 7);
 let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  date.getDate();
 
 const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${weekage}T00:00:00.000Z&max_date=${maxDate}T00:00:00.000Z`;
+// console.log(dailyComfirmedUrl);
 
 
 class Map {
@@ -72,7 +73,7 @@ class Map {
               let dailyCases = 0;
               let dailyDeaths = 0;
        
-              // console.log(dailyComfirmeddata);
+            //   console.log(dailyComfirmeddata);
               dailyComfirmeddata.forEach(ele=>{  
                   if (ele.date.split('T')[0] === updateCaseDate ){  
                       deathCase[ele.state] ||= 0;
@@ -103,9 +104,9 @@ class Map {
 
                     d3.select(".canvaChart__header")                  
                             .html( `<div class='tipContext'>`
-                                + `<span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
-                                + `<span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
-                                + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
+                                + `<span class="canvaChart__heading"> Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
+                                + `<span class="canvaChart__heading"> Cases:</span>  ` + comfrimCase[selectValue]
+                                + `<br><span class="canvaChart__heading"> Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
                     
                    
                     const linechart = new LineChart();
@@ -131,9 +132,9 @@ class Map {
 
             d3.select(".canvaChart__header")                  
                          .html( `<div class='tipContext'>`
-                                + `<span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
-                                + `<span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
-                                + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
+                                + `<span class="canvaChart__heading"> Doses Administered rate:</span> ${fullyVaccinated[selectValue]}<br>`
+                                + `<span class="canvaChart__heading"> Cases:</span>  ` + comfrimCase[selectValue]
+                                + `<br><span class="canvaChart__heading"> Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
 
             const linechart = new LineChart();
             linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
