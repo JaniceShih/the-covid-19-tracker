@@ -66,7 +66,7 @@ a:hover{
 .container__sidebar{
   display: flex;
   flex-direction: column;
-  flex:0.2;
+  flex:0.25;
   padding: 15px 15px;
 }
 
@@ -123,16 +123,42 @@ text > h2{
 
 .canvaChart__select{
   margin-top: 30px;
-  margin-bottom: 30px;
-  align-self: center;
-  background: var(--color-border);
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 
 .canvaChart__select > select{
   border-radius: 5px;
+  border: 1px solid rgb(238, 238, 238);
+  box-shadow: 0 0 5px rgb(207, 207, 207), 0 0 10px rgb(238, 238, 238);
   font-size: 1.2em;
   font-weight: 500;
   color: var(--color-body-darker);
+}
+
+.canvaChart__select > select:focus{
+  border: 1px solid rgb(238, 238, 238);
+}
+
+.tipContext{
+  padding-left: 10px;
+  color: var(--color-body-darker);
+  font-weight: 500;
+}
+
+.canvaChart__heading--primary{
+  color: white;
+  padding: 10px 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  text-align: center;
+}
+
+.canvaChart__heading{
+  font-weight: 700;
+  color: var(--color-callout);
 }
 
 .container__map{

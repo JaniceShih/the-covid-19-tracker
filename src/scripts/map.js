@@ -98,9 +98,15 @@ class Map {
             let select = d3.select(".canvaChart__select").append("select")
                 .attr("name", "name-list")
                 .attr('class','select')
-                .on("change", function (e) { 
-                    
+                .on("change", function () { 
                     const selectValue = d3.select('select').property('value')
+
+                    d3.select(".canvaChart__header")                  
+                            .html( `<div class='tipContext'><span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
+                            + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue]
+                            + `<br><span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]} </div><br>` )
+                    
+                   
                     const linechart = new LineChart();
                     linechart.d3(confirmed_daily,  selectValue, '.canvaChart');
                     
@@ -121,6 +127,12 @@ class Map {
                 ;
 
             const selectValue = d3.select('select').property('value')
+
+            d3.select(".canvaChart__header")                  
+                         .html( `<div class='tipContext'><span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[selectValue]
+                                + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[selectValue]
+                                + `<br><span class="canvaChart__heading">Total Doses Administered rate:</span> ${fullyVaccinated[selectValue]} </div><br>` )
+
             const linechart = new LineChart();
             linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
 
@@ -181,11 +193,10 @@ class Map {
                    
                     current_position =  d3.pointer(event);
 
-
-                    let tipObject = `<div class='tipContext'><strong>` + d.properties.name + `</strong>`
-                                     + `<br>Total Cases:  ` + comfrimCase[d.properties.name]
-                                     + `<br>Total Deaths: ` +  deathCase[d.properties.name]
-                                     + `<br>Total Doses Administered rate: ${fullyVaccinated[d.properties.name]} </div><br>` ;
+                    let tipObject = `<div class='tipContext'><p class="canvaChart__heading--primary">` + d.properties.name + `</p>`
+                                     + `<span class="canvaChart__heading">Total Cases:</span>  ` + comfrimCase[d.properties.name]
+                                     + `<br><span class="canvaChart__heading">Total Deaths:</span> ` +  deathCase[d.properties.name]
+                                     + `<br><span class="canvaChart__heading">Total Doses Administered rate:</span>: ${fullyVaccinated[d.properties.name]} </div><br>` ;
                     tipObject += `<div id='tipDiv'></div>`;
                     tip.show(event, tipObject);
                     const linechart = new LineChart();

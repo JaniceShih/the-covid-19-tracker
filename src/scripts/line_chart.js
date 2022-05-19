@@ -4,7 +4,6 @@ class LineChart {
     }  
 
     d3(confirmed_daily, state, target_div) {  
-        console.log("line chart")
         let confirmed_daily_case = {};
         let dailyComfirmed = [];
         
@@ -19,12 +18,7 @@ class LineChart {
          var formatTime = d3.timeFormat("%Y-%m-%d");
          
          dataset1.forEach(function(d) {
-             // const arr = d.date.split("-")
-             // arr[2] =  parseInt(arr[2]) + 1;
-             // const date = arr.join("-");
-             // console.log(date);
-             d.date = new Date(formatTime(new Date(d.date)));
-            
+             d.date = new Date(formatTime(new Date(d.date)));            
              d.confirmed_daily = (d.confirmed_daily > 0 ) ? d.confirmed_daily : 0;
          });
          
@@ -37,7 +31,7 @@ class LineChart {
          d3.select(target_div).selectAll('svg').remove();
 
          let tipSVG = d3.select(target_div)
-            .append("svg")
+             .append("svg")
              .attr("width", chartWidth+70)
              .attr("height", chartHeight+60);
 
@@ -67,14 +61,16 @@ class LineChart {
                .style("text-anchor", "end")
                .attr("dx", "-.8em")
                .attr("dy", ".15em")
-               .attr("transform", "rotate(-25)")
+               .attr("transform", "rotate(-35)")
              ;
          
          
          g.append("g")
              .attr("transform", "translate(" + 0 + "," + -100 + ")")
              .call( d3.axisLeft()
-             .scale(yScale).ticks(2));
+             .scale(yScale)
+             .ticks(3)
+             );
 
         
          let line = d3.line()
