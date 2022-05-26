@@ -12,7 +12,11 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 
 In The COVID Tracking Project, users will be able to:
 
-- See colorly USA States Map base on Covid-19 Fully Vaccinated and legend bar.
+- Render toaly cases and deathes of USA.
+
+- Select dropdown menu to see each state daily comfirmly cases line chart
+
+- User can see colorly USA States Map base on Covid-19 Total Doses Administered rate (per 100,000 of the Total Population) and legend bar.
 
 - User can see highlight states on the map when click on each color of Legend bar.
 
