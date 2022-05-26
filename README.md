@@ -12,7 +12,7 @@ The website provide user to see COVID 19 cases, deaths and vaccinated of US stat
 
 In The COVID Tracking Project, users will be able to:
 
-- Render toaly cases and deathes of USA.
+- Render Total cases and deathes of USA.
 
 - Select dropdown menu to see each state daily comfirmly cases line chart
 
