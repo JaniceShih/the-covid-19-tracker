@@ -7,13 +7,13 @@ const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 let date = new Date();
 const year = date.getFullYear();
 const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
-const day = date.getDate()-1;
+const day = ((date.getDate())-1 < 10 ? `0` : ``)+ (date.getDate()-1);
 const currentDate= year + `-` + month + `-` +  day;
-const maxDate= year + `-` + month + `-` +  (date.getDate());
-const updateCaseDate = year + `-` + month + `-` +  (date.getDate()-2);
+const maxDate= year + `-` + month + `-` +   ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate());
+const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-2);
 
 date.setDate(date.getDate() - 7);
-let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  date.getDate();
+let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-1);
 
 const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${weekage}T00:00:00.000Z&max_date=${maxDate}T00:00:00.000Z`;
 // console.log(dailyComfirmedUrl);
@@ -51,7 +51,7 @@ class Map {
         
         // draw Map
         let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
-
+            console.log(updateCaseDate);
 
               // color map state base on Total Doses Administered Reported              
               let fullyVaccinated = {};
@@ -74,6 +74,7 @@ class Map {
               let dailyDeaths = 0;
        
             //   console.log(dailyComfirmeddata);
+            //   console.log(updateCaseDate);
               dailyComfirmeddata.forEach(ele=>{  
                   if (ele.date.split('T')[0] === updateCaseDate ){  
                       deathCase[ele.state] ||= 0;
