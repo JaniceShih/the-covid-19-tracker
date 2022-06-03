@@ -10,7 +10,7 @@ const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
 const day = ((date.getDate())-1 < 10 ? `0` : ``)+ (date.getDate()-1);
 const currentDate= year + `-` + month + `-` +  day;
 const maxDate= year + `-` + month + `-` +   ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate());
-const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-2);
+const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-1);
 
 date.setDate(date.getDate() - 7);
 let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-1);
@@ -51,7 +51,7 @@ class Map {
         
         // draw Map
         let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
-            console.log(updateCaseDate);
+            // console.log(updateCaseDate);
 
               // color map state base on Total Doses Administered Reported              
               let fullyVaccinated = {};
