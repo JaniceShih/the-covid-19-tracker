@@ -7,13 +7,13 @@ const vaccinatedUrl ="https://data.cdc.gov/resource/unsk-b7fc.json";
 let date = new Date();
 const year = date.getFullYear();
 const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
-const day = ((date.getDate())-1 < 10 ? `0` : ``)+ (date.getDate()-1);
+const day = ((date.getDate())-1 < 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
 const currentDate= year + `-` + month + `-` +  day;
 const maxDate= year + `-` + month + `-` +   ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate());
-const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-1);
+const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
 
 date.setDate(date.getDate() - 7);
-let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (date.getDate()-1);
+let weekage = date.getFullYear() + `-` + (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1)) + `-` +  ((date.getDate()) < 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
 
 const dailyComfirmedUrl = `https://webhooks.mongodb-stitch.com/api/client/v2.0/app/covid-19-qppza/service/REST-API/incoming_webhook/us_only?min_date=${weekage}T00:00:00.000Z&max_date=${maxDate}T00:00:00.000Z`;
 // console.log(dailyComfirmedUrl);
@@ -109,7 +109,8 @@ class Map {
                                 + `<span class="canvaChart__heading"> Cases:</span>  ` + comfrimCase[selectValue]
                                 + `<br><span class="canvaChart__heading"> Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
                     
-                   
+                //    console.log(confirmed_daily);
+                //    console.log(selectValue);
                     const linechart = new LineChart();
                     linechart.d3(confirmed_daily,  selectValue, '.canvaChart');
                     
@@ -137,8 +138,8 @@ class Map {
                                 + `<span class="canvaChart__heading"> Cases:</span>  ` + comfrimCase[selectValue]
                                 + `<br><span class="canvaChart__heading"> Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
 
-            const linechart = new LineChart();
-            linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
+            // const linechart = new LineChart();
+            // linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
 
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
