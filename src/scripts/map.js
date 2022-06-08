@@ -138,8 +138,8 @@ class Map {
                                 + `<span class="canvaChart__heading"> Cases:</span>  ` + comfrimCase[selectValue]
                                 + `<br><span class="canvaChart__heading"> Deaths:</span> ` +  deathCase[selectValue] + `</div><br>` )
 
-            // const linechart = new LineChart();
-            // linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
+            const linechart = new LineChart();
+            linechart.d3(confirmed_daily,  'Alabama', '.canvaChart');
 
             // topo json covert to geo json
             const statesData = topojson.feature(data, data.objects.units).features;
