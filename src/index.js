@@ -58,9 +58,12 @@ document.addEventListener("DOMContentLoaded", () => {
          document.body.appendChild(myDiv);
     
          document.getElementById('canvaMap').style.display = 'none';
+         document.getElementById('container__sidebar').style.display = 'none';
+         
          setTimeout(function () {
               document.getElementById('myDiv').style.display = 'none';
               document.getElementById('canvaMap').style.display = 'flex';
+              document.getElementById('container__sidebar').style.display = 'flex';
           }, 3500)
     
 
