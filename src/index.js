@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
               document.getElementById('myDiv').style.display = 'none';
               document.getElementById('canvaMap').style.display = 'flex';
               document.getElementById('container__sidebar').style.display = 'flex';
-          }, 3500)
+          }, 4000)
     
 
      // D3 Lengend
