@@ -50,7 +50,7 @@ class LineChart {
              .attr('text-anchor', 'middle')
              .style('font-family', 'Helvetica')
              .style('font-size', 12)
-             .text('daily comfimed cases');
+             .text('daily confirmedcases');
 
          
          g.append("g")
