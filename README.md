@@ -21,7 +21,6 @@ In The COVID Tracking Project, users will be able to:
 - User can see highlight states on the map when click on each color of Legend bar.
 
 - Use Mouse havor each state render Tip with Covid-19 cases, deaths data and daily confirmed line chart from API.
-- 
 
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
 
