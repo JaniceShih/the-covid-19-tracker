@@ -22,7 +22,7 @@ In The COVID Tracking Project, users will be able to:
 
 - Use Mouse havor each Stae render Tip with Covid-19 cases and deaths data from API.
 
-- Use Mouse havor each Stae render Tip with Covid-19 daily comfirmed line chart from API.
+- Use Mouse havor each Stae render Tip with Covid-19 daily confirmed line chart from API.
 
 Live site: [COVID-19 Tracker](https://janiceshih.github.io/the-covid-19-tracker/).
 

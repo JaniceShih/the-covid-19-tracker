@@ -56,12 +56,17 @@ class Map {
               // color map state base on Total Doses Administered Reported              
               let fullyVaccinated = {};
               for (let i = 0; i < stateabbrdata.length; i++) {
-              const stateName = stateabbrdata[i].State;
-              const stateAbbr = stateabbrdata[i].Abbr;
-              const stateVaccinated= vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
-                  if(stateVaccinated.length !== 0){
-                      fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
-                  }
+                const stateName = stateabbrdata[i].State;
+                const stateAbbr = stateabbrdata[i].Abbr;
+              
+                const stateVaccinated = vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
+                if(stateVaccinated.length !== 0){
+                    fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
+                } 
+                               
+                if(fullyVaccinated[stateName]  === undefined){
+                    fullyVaccinated[stateName] = 'no current data';
+                }
               }
   
               let deathCase = {};
