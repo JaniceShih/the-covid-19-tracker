@@ -8,8 +8,8 @@ let date = new Date();
 const year = date.getFullYear();
 const month = (((date.getMonth()+1) < 10 ? `0` : ``) + (date.getMonth()+1));
 const day = ((date.getDate()) <= 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
-const currentDate= year + `-` + month + `-` +  day;
-console.log(currentDate);
+// const currentDate= year + `-` + month + `-` +  day;
+// console.log(currentDate);
 const maxDate= year + `-` + month + `-` +   ((date.getDate()) <= 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
 const updateCaseDate = year + `-` + month + `-` +  ((date.getDate()) <= 10 ? `0` : ``)+ (parseInt(date.getDate()-1) <= 0 ? date.getDate() : date.getDate()-1);
 
@@ -52,13 +52,13 @@ class Map {
         // draw Map
         let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata)=> {
             
-
+              let currentDate;
               // color map state base on Total Doses Administered Reported              
               let fullyVaccinated = {};
               for (let i = 0; i < stateabbrdata.length; i++) {
                 const stateName = stateabbrdata[i].State;
                 const stateAbbr = stateabbrdata[i].Abbr;
-              
+                currentDate ||= vaccinatedata[0].date.split('T')[0];
                 const stateVaccinated = vaccinatedata.filter(ele => ele.date.split('T')[0] === currentDate  && ele.location === stateAbbr);
                 if(stateVaccinated.length !== 0){
                     fullyVaccinated[stateName] = stateVaccinated[0].dist_per_100k;
