@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("myDiv").style.display = "none";
     document.getElementById("canvaMap").style.display = "flex";
     document.getElementById("container__sidebar").style.display = "flex";
-  }, 2000);
+  }, 2500);
 
   // D3 Lengend
   const legend = document.getElementsByClassName("legend");
