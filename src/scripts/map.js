@@ -69,19 +69,6 @@ class Map {
       drawMap(data[0], data[1], data[2], data[3])
     );
 
-    // fetch.getData(stateURL).then((data) => {
-    //   fetch.getData(vaccinatedUrl).then((vaccinatedata) => {
-    //     d3.csv("src/csv/usa_state_abb.csv").then((stateabbrdata, error) => {
-    //       if (error) {
-    //         console.log(error);
-    //       } else {
-    //         fetch.getData(dailyComfirmedUrl).then((dailyComfirmeddata) => {
-    //           drawMap(data, vaccinatedata, stateabbrdata, dailyComfirmeddata);
-    //         });
-    //       }
-    //     });
-    //   });
-    // });
 
     // draw Map
     let drawMap = (data, vaccinatedata, stateabbrdata, dailyComfirmeddata) => {
